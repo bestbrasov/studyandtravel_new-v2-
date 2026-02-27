@@ -317,7 +317,7 @@
             <i class="fa-solid fa-chevron-down"></i>
           </div>
           <div class="faq-answer" v-if="faq.open">
-            <p>{{ faq.answer }}</p>
+            <p v-html="faq.answer.replace(/<b><b>/g, '<b>').replace(/<\/b><\/b>/g, '</b>')"></p>
           </div>
         </div>
       </div>
@@ -696,7 +696,7 @@ const faqs = ref([
   },
   {
     question: "Se pot obține credite ECTS în urma participării la un eveniment BEST?",
-    answer: `După încheierea procesului de evaluare finală în cadrul cursului, vei primi un <b>certificat BEST</b> care servește drept dovadă a participării și va oferi o descriere detaliată a conținutului cursului. Certificatul BEST va fi autentificat prin intermediul ștampilei universității și a semnăturii profesorului coordonator, iar pe lângă acestea, va include informații cu privire la numărul de <b>credite ECTS</b> alocat cursului, oferind astfel o recunoaștere oficială a eforturilor și a performanțelor tale în cadrul acestuia.`,
+    answer: `După încheierea procesului de evaluare finală în cadrul cursului, vei primi un <b>certificat BEST</b> care servește drept dovadă a participării și va oferi o descriere detaliată a conținutului cursului. Certificatul BEST va fi autentificat prin intermediul ștampilei universității și a semnăturii profesorului coordonator, iar pe lângă acestea, va include informații cu privire la numărul de credite ECTS alocat cursului, oferind astfel o recunoaștere oficială a eforturilor și a performanțelor tale în cadrul acestuia.`,
     open: false
   },
   {
