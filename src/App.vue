@@ -375,7 +375,7 @@
 
     <footer>
       <div class="text-center" style="padding: 60px 40px;">
-        <h2 style="color: var(--blue-sky); margin-bottom: 20px;">BEST Travel</h2>
+        <h2 style="color: var(--blue-sky); margin-bottom: 20px;">BEST COURSES</h2>
 
         <div class="footer-socials" style="margin-bottom: 25px;">
           <a href="https://www.instagram.com/bestbrasov/" target="_blank" class="social-icon">
@@ -387,7 +387,7 @@
         </div>
 
         <p style="font-size: 0.9rem; opacity: 0.6;">
-          Designed with <i class="fa-solid fa-heart" style="color:var(--pink-pop)"></i> for BEST Brasov
+          Designed with <i class="fa-solid fa-heart" style="color:var(--pink-pop)"></i> by BEST Brasov
         </p>
       </div>
     </footer>
