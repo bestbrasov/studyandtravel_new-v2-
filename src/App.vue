@@ -94,11 +94,11 @@
     <section class="stats-bar" data-aos="fade-up">
         <div class="blob-bg" style="background: var(--pink-soft); top: 5%; left: 5%; width: 220px; height: 220px; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; z-index:0; position:absolute; filter: blur(8px); opacity:0.35;"></div>
       <div class="stat-item">
-        <h3>18</h3>
+        <h3>{{ destinationsCount }}</h3>
         <p>Destinații</p>
       </div>
       <div class="stat-item">
-        <h3>76€</h3>
+        <h3>{{ averageFee }}€</h3>
         <p>Cost Mediu</p>
       </div>
       <div class="stat-item">
@@ -129,10 +129,10 @@
       </div>
     </section>
 
-    <section id="courses" class="section-padding" style="background: rgba(255,255,255,0.4);">
+    <section id="courses" class="section-padding" style="background: #ffffff;">
         <div class="blob-bg" style="background: var(--pink-soft); top: 15%; left: 10%; width: 180px; height: 180px; border-radius: 50% 50% 60% 40% / 60% 40% 50% 50%; z-index:0; position:absolute; filter: blur(8px); opacity:0.28;"></div>
-      <h2 class="text-center" style="margin-bottom: 50px;" data-aos="zoom-in">Destinatii Europene</h2>
-      <p class="text-center" style="margin-top: -30px; margin-bottom: 50px; color: var(--pink-pop); font-weight: 700; letter-spacing: 1px;">CLICK PE IMAGINI PENTRU DETALII</p>
+      <h2 class="text-center" style="margin-bottom: 24px;" data-aos="zoom-in">Destinatii Europene</h2>
+      <p class="text-center" style="margin-bottom: 45px; color: var(--pink-pop); font-weight: 700; letter-spacing: 1px;">CLICK PE IMAGINI PENTRU DETALII</p>
 
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -141,7 +141,7 @@
               :key="index"
               class="swiper-slide mouse-hover"
               @click="openModal(course)"
-              :style="{ backgroundImage: `url(${course.img})` }"
+              :style="{ backgroundImage: `url(${getCourseImg(course)})` }"
           >
             <div class="slide-content">
               <span class="badge">{{ course.country }}</span>
@@ -395,7 +395,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import coursesData from './courses.json';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import AOS from 'aos';
@@ -403,233 +404,50 @@ import 'aos/dist/aos.css';
 import Typed from 'typed.js';
 import VanillaTilt from 'vanilla-tilt';
 
-const cursorDot = ref(null);
-const cursorOutline = ref(null);
+const fallbackImg = '/images/fallback_course.jpg';
+function getCourseImg(course) {
+  if (!course.img || course.img.includes('BEST_signature.svg')) {
+    return fallbackImg;
+  }
+  try {
+    const imgUrl = new URL(course.img);
+    if (imgUrl.hostname.includes('unsplash.com')) {
+      imgUrl.searchParams.set('auto', 'format');
+      imgUrl.searchParams.set('q', '75');
+      imgUrl.searchParams.set('w', '800');
+      imgUrl.searchParams.set('dpr', '1');
+    }
+    return imgUrl.toString();
+  } catch {
+    return course.img;
+  }
+}
+const coursesList = ref(coursesData);
+const destinationsCount = computed(() => coursesList.value.length);
+const averageFee = computed(() => {
+  const fees = coursesList.value
+    .map((course) => Number.parseFloat(String(course.fee).replace('€', '').trim()))
+    .filter((fee) => Number.isFinite(fee));
+
+  if (!fees.length) return 0;
+  const total = fees.reduce((sum, fee) => sum + fee, 0);
+  return Math.round(total / fees.length);
+});
 const typedText = ref(null);
 const tiltElements = ref([]);
 const sakuraContainer = ref(null);
-
+const cursorDot = ref(null);
+const cursorOutline = ref(null);
 const isModalOpen = ref(false);
-const currentModalData = ref({});
-
-const coursesList = ref([
-  {
-    city: 'Bordeaux',
-    country: 'France',
-    title: 'Surf on an ecological wave: Designing the next gen surf Board',
-    dates: '14 - 21 June 2026',
-    fee: '70.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=m2mno9q',
-    img: 'https://st4.depositphotos.com/1000633/38184/i/450/depositphotos_381841026-stock-photo-bordeaux-france-june-2016-place.jpg'
-  },
-  {
-    city: 'Istanbul',
-    country: 'Turkiye',
-    title: 'The Wolf of Digital Street: Sell Me This Product!',
-    dates: '17 - 24 June 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11q',
-    img: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    city: 'Maribor',
-    country: 'Slovenia',
-    title: 'Pax Informatica: Advanced usage of Generative AI and LLMs',
-    dates: '27 June - 4 July 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3ljmak',
-    img: 'https://media.istockphoto.com/id/1163181078/photo/maribor-and-its-bridges-over-drava-river.jpg?s=612x612&w=0&k=20&c=cJwvBcBqGpx7tYVDf0KabnXy_U0eVYoLOipgaMmGTbQ='
-  },
-  {
-    city: 'Tallinn',
-    country: 'Estonia',
-    title: 'Think Like a CFO, Act Like a Leader - The Basics of Finance, Investing & Leadership',
-    dates: '28 June - 8 July 2026',
-    fee: '75.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=o1nrq8q',
-    img: 'https://media.digitalnomads.world/wp-content/uploads/2021/03/20120553/tallinn-digital-nomads-1024x683.jpg'
-  },
-  {
-    city: 'Louvain-la-Neuve',
-    country: 'Belgium',
-    title: 'Giving shape to the unknown: Machine Design and Rapid Prototyping',
-    dates: '2 - 11 July 2026',
-    fee: '85.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11y',
-    img: 'https://blog.martinshotels.com/content/images/2024/11/12-MLLN-vue-aerienne-2022-PTE-CMYK---copyright-Simon-Schmitt.jpg'
-  },
-  {
-    city: 'Istanbul',
-    country: 'Turkiye',
-    title: 'Paradise on Marketing: Where Brands Catch Waves',
-    dates: '4 - 12 July 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3ljmah',
-    img: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    city: 'Košice',
-    country: 'Slovakia',
-    title: 'Lord of the Things: Create your own smart household with IoT!',
-    dates: '5 - 12 July 2026',
-    fee: '65.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=i4afz2n',
-    img: 'https://s.inyourpocket.com/gallery/253753.jpg'
-  },
-  {
-    city: 'Patras',
-    country: 'Greece',
-    title: 'Journal 4: Clean energy, New technologies & suSTANable buildings',
-    dates: '5 - 13 July 2026',
-    fee: '72.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=i4afz2p',
-    img: 'https://www.greeka.com/photos/peloponnese/patra/hero/patra-1920.jpg'
-  },
-  {
-    city: 'Skopje',
-    country: 'North Macedonia',
-    title: 'Designing Digital Experiences: Why Some Apps Feel Amazing',
-    dates: '5 - 13 July 2026',
-    fee: '66.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11g',
-    img: 'https://cdn.tripspoint.com/uploads/photos/5106/skopje-city-tour-the-best-of-skopje_VlPmA.jpeg'
-  },
-  {
-    city: 'Leuven',
-    country: 'Belgium',
-    title: 'Double Trouble: When Physical Systems Go Digital',
-    dates: '7 - 16 July 2026',
-    fee: '100.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11n',
-    img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/4e/92/c5/old-market-square-oude.jpg?w=1200&h=700&s=1'
-  },
-  {
-    city: 'Vienna',
-    country: 'Austria',
-    title: "Gru's Guide for Minion Space Engineering: Tonight we steal the moon!",
-    dates: '11 - 19 July 2026',
-    fee: '75.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11k',
-    img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/78/c3/76/caption.jpg?w=1200&h=-1&s=1'
-  },
-  {
-    city: 'Iași',
-    country: 'Romania',
-    title: 'Empowered Diversity: International Mobility, Wellbeing, and Inclusive Campus Cultures',
-    dates: '11 - 22 July 2026',
-    fee: '50.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=g59bx2x',
-    img: 'https://covinnus.com/wp-content/uploads/2021/11/Palace-of-Culture-Iasi.jpg'
-  },
-  {
-    city: 'Bucharest',
-    country: 'Romania',
-    title: 'Once Upon a Model: Bring Your Design Concepts to Life in Software',
-    dates: '12 - 21 July 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=m2mno9k',
-    img: 'https://static01.nyt.com/images/2018/11/18/travel/18Hours-Bucharest1/18Hours-Bucharest1-superJumbo-v3.jpg'
-  },
-  {
-    city: 'Wrocław',
-    country: 'Poland',
-    title: 'Racing against hackers: Advanced Cybersecurity and Digital Forensics for IoT',
-    dates: '14 - 22 July 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=i4afz2k',
-    img: 'https://wa-uploads.profitroom.com/hastonoldtown/1920x850/17472937705063_wroclove.jpeg'
-  },
-  {
-    city: 'Coimbra',
-    country: 'Portugal',
-    title: 'Space Safety: Your Guide to the Final Frontier',
-    dates: '15 - 24 July 2026',
-    fee: '90.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=m2co30m',
-    img: 'https://images.winalist.com/blog/wp-content/uploads/2025/03/23063825/adobestock-164104316-1500x734.jpeg'
-  },
-  {
-    city: 'Chișinău',
-    country: 'Moldova',
-    title: 'When Code Makes Decisions: A Gentle Introduction to Agentic AI',
-    dates: '21 - 28 July 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3ljman',
-    img: 'https://www.aviontourism.com/images/1260-2600-fix/573c3c8e-00d8-4a30-9384-3aeddfa9f5fc'
-  },
-  {
-    city: 'Aveiro',
-    country: 'Portugal',
-    title: 'Data Science: Turning Stranger Data the Rightside Up',
-    dates: '22 - 29 July 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=m2mno9n',
-    img: 'https://bulgarianonthego.blog/wp-content/uploads/2022/05/things-to-do-in-aveiro-25-min.jpg'
-  },
-  {
-    city: 'Rome',
-    country: 'Italy',
-    title: 'Fly Me To The Moon: Engineering The BEST Space Supply Chain',
-    dates: '26 July - 1 August 2026',
-    fee: '70.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11s',
-    img: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    city: 'Messina',
-    country: 'Italy',
-    title: 'TRON: The Rise of Autonomous Vehicles',
-    dates: '26 July - 2 August 2026',
-    fee: '50.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11j',
-    img: 'https://www.sightseeing-experience.com/magazine/wp-content/uploads/2024/08/AdobeStock_46229260-scaled.jpeg'
-  },
-  {
-    city: 'Mostar',
-    country: 'Bosnia and Herzegovina',
-    title: 'Attention Economy: How Brands Win Minds',
-    dates: '26 July - 1 August 2026',
-    fee: '70.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=m2co30g',
-    img: 'https://media.cntraveller.com/photos/650c037b9a4941357e144469/16:9/w_2112,h_1188,c_limit/Mostar,%20Bosnia%20and%20Herzegovina-GettyImages-909655800.jpeg'
-  },
-  {
-    city: 'Cluj-Napoca',
-    country: 'Romania',
-    title: 'Where is Perry? Bring your own Summer Invention to life!',
-    dates: '27 July - 3 August 2026',
-    fee: '70.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=i4afz2d',
-    img: 'https://cdn.britannica.com/09/226309-050-F0352A58/City-of-Cluj-Napoca-in-Romania.jpg'
-  },
-  {
-    city: 'Belgrade',
-    country: 'Serbia',
-    title: 'The Alchemy of Startup Creation: Turn Your Idea into Gold!',
-    dates: '8 - 15 August 2026',
-    fee: '60.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=g59bx3h',
-    img: 'https://lp-cms-production.imgix.net/2023-03/shutterstockRF_383722246.jpg'
-  },
-  {
-    city: 'Prague',
-    country: 'Czech Republic',
-    title: 'Hash me if you can: Blockchain most wanted',
-    dates: '14 - 23 August 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=k3bk11v',
-    img: 'https://www.gokitetours.com/wp-content/uploads/2025/01/Top-10-Must-See-Tourist-Attractions-in-Prague-Czech-Republic.webp'
-  },
-  {
-    city: 'Ljubljana',
-    country: 'Slovenia',
-    title: 'Solving Cold Cases in the Genome: Mystery of Gene and Cell Therapies',
-    dates: '24 - 31 August 2026',
-    fee: '80.0€',
-    link: 'https://best-eu.org/event/details.jsp?activity=m2co30y',
-    img: 'https://images.goway.com/production/hero_image/Ljubljana_Slovenia_AdobeStock_262853364.jpeg'
-  }
-]);
+const currentModalData = ref(coursesData[0] ?? {
+  city: '',
+  country: '',
+  title: '',
+  dates: '',
+  fee: '',
+  img: fallbackImg,
+  link: '#'
+});
 
 const wallPhotos = ref([
   'PIQ_0381.JPG',
@@ -734,9 +552,16 @@ const toggleCheck = (index) => {
 };
 
 onMounted(() => {
-  AOS.init({ duration: 1000, once: true });
+  const isSmallScreen = window.matchMedia('(max-width: 900px)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (tiltElements.value.length) {
+  AOS.init({
+    duration: 800,
+    once: true,
+    disable: isSmallScreen || prefersReducedMotion,
+  });
+
+  if (!isSmallScreen && !prefersReducedMotion && tiltElements.value.length) {
     VanillaTilt.init(tiltElements.value);
   }
 
@@ -748,28 +573,55 @@ onMounted(() => {
   new Swiper(".mySwiper", {
     effect: "coverflow",
     grabCursor: true,
+    simulateTouch: true,
+    allowTouchMove: true,
+    touchRatio: 1.1,
+    threshold: 2,
+    shortSwipes: true,
+    longSwipesRatio: 0.2,
+    preventClicks: false,
+    preventClicksPropagation: false,
     centeredSlides: true,
-    slidesPerView: "auto",
+    slidesPerView: 3.4,
     initialSlide: 1,
+    loop: true,
     coverflowEffect: {
-      rotate: 30, stretch: 0, depth: 200, modifier: 1, slideShadows: true,
+      rotate: 18,
+      stretch: -52,
+      depth: 190,
+      modifier: 1,
+      slideShadows: false,
     },
-    pagination: { el: ".swiper-pagination" },
-    autoplay: { delay: 3000, disableOnInteraction: false },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    mousewheel: {
+      forceToAxis: false,
+      releaseOnEdges: true,
+      sensitivity: 1,
+    },
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+    breakpoints: {
+      0: { slidesPerView: 1.1 },
+      640: { slidesPerView: 1.9 },
+      1024: { slidesPerView: 2.8 },
+      1360: { slidesPerView: 3.4 }
+    }
   });
 
   const createPetals = () => {
     const container = sakuraContainer.value;
     if(!container) return;
 
-    const petalCount = 40;
+    const petalCount = isSmallScreen ? 6 : 10;
     for (let i = 0; i < petalCount; i++) {
       const petal = document.createElement('div');
       petal.classList.add('petal');
 
       const startLeft = Math.random() * 100;
       // Durata mai mare pentru cădere mai lentă
-      const duration = Math.random() * 7 + 13; // 13-20s
+      const duration = Math.random() * 7 + 16;
       const delay = Math.random() * 8;
       const size = Math.random() * 15 + 10;
 
@@ -791,17 +643,26 @@ onMounted(() => {
   createPetals();
 
   const hoverElements = document.querySelectorAll('.mouse-hover');
-  window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-    if(cursorDot.value) {
-      cursorDot.value.style.left = `${posX}px`;
-      cursorDot.value.style.top = `${posY}px`;
-    }
-    if(cursorOutline.value) {
-      cursorOutline.value.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
-    }
-  });
+  let rafId = null;
+  let nextX = 0;
+  let nextY = 0;
+  const onMouseMove = (e) => {
+    nextX = e.clientX;
+    nextY = e.clientY;
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      if (cursorDot.value) {
+        cursorDot.value.style.left = `${nextX}px`;
+        cursorDot.value.style.top = `${nextY}px`;
+      }
+      if (cursorOutline.value) {
+        cursorOutline.value.style.left = `${nextX}px`;
+        cursorOutline.value.style.top = `${nextY}px`;
+      }
+      rafId = null;
+    });
+  };
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
 
   hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
@@ -1018,22 +879,81 @@ nav {
 .tilt-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
 .tilt-card p { opacity: 0.7; }
 
-.swiper { width: 100%; padding-top: 50px; padding-bottom: 60px; }
+.swiper {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-top: 22px;
+  padding-bottom: 46px;
+  overflow: visible;
+}
+.swiper.mySwiper {
+  touch-action: pan-y;
+}
 .swiper-slide {
   background-position: center; background-size: cover;
-  width: 340px; height: 500px; border-radius: 35px;
-  overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  position: relative; transition: 0.3s;
+  width: 300px; height: 440px; border-radius: 22px;
+  overflow: hidden; box-shadow: 0 16px 34px rgba(15, 23, 42, 0.24);
+  position: relative; transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
 }
-.swiper-slide:hover { transform: scale(1.02); }
+.swiper-slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 10%, rgba(15, 23, 42, 0.32) 46%, rgba(15, 23, 42, 0.04) 78%);
+  z-index: 1;
+}
+.swiper-slide-active {
+  transform: scale(1.08);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.34);
+  z-index: 5;
+}
+.swiper-slide-prev,
+.swiper-slide-next {
+  opacity: 0.98;
+}
+.swiper-slide:not(.swiper-slide-active) {
+  filter: saturate(0.95);
+}
 .slide-content {
   position: absolute; bottom: 0; left: 0; width: 100%;
-  padding: 40px 25px;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
-  color: white; transform: translateY(10px); transition: 0.4s;
+  z-index: 2;
+  padding: 22px 20px;
+  color: white;
+  transform: translateY(6px);
+  transition: transform 0.35s ease;
 }
 .swiper-slide:hover .slide-content { transform: translateY(0); }
-.badge { background: var(--accent-gold); color: black; padding: 6px 14px; border-radius: 20px; font-weight: 800; font-size: 0.75rem; display: inline-block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+.slide-content h3 {
+  font-size: 1.55rem;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+.badge {
+  background: #facc15;
+  color: #111827;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.66rem;
+  display: inline-block;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.swiper-pagination {
+  margin-top: 2px;
+}
+.swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background: #d1d5db;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background: #3b82f6;
+}
 
 .process-container { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; text-align: center; }
 .process-step { flex: 1; min-width: 250px; padding: 20px; }
