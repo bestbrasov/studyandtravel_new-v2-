@@ -346,12 +346,14 @@
 
       <div class="responsible-wrapper" data-aos="flip-up">
         <div class="responsible-card mouse-hover">
-          <img src="/images/diana.jpg" class="resp-img" alt="Diana Georgescu">
+          <img src="/images/ioana_vivaldi.jpeg" class="resp-img" alt="Ioana Bianca Renea">
           <div class="resp-content">
-            <h3>Diana Georgescu</h3>
-            <p style="margin-bottom: 8px;">Ea se asigură că ajungi cu bine la destinație și că ai cea mai tare experiență academică. Orice întrebare ai, ea este persoana potrivită!</p>
+            <h3>Ioana Bianca Renea</h3>
+            <p style="margin-bottom: 12px; line-height: 1.6;">Ea se asigură că ajungi cu bine la destinație și că ai cea mai tare experiență academică. Orice întrebare ai, ea este persoana potrivită!</p>
             <p style="font-size: 1rem; color: var(--blue-sky); font-weight: 600; margin: 0;">
-              <i class="fa-solid fa-envelope"></i> diana.georgescu@best-eu.org
+              <a href="mailto:ioana-bianca.renea@best-eu.org" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-envelope"></i> ioana-bianca.renea@best-eu.org
+              </a>
             </p>
           </div>
         </div>
@@ -1079,13 +1081,28 @@ nav {
 .responsible-wrapper { display: flex; justify-content: center; margin-top: 30px; }
 .responsible-card {
   display: flex; align-items: center; background: white;
-  padding: 40px; border-radius: 40px; max-width: 800px; width: 100%;
+  padding: 40px 45px; border-radius: 40px; max-width: 850px; width: 100%;
   box-shadow: var(--shadow-pop); border: 2px solid var(--pink-soft);
   gap: 40px; transition: 0.3s;
 }
 .responsible-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(255, 154, 158, 0.2); }
-.resp-img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 5px solid var(--pink-pop); }
-.resp-content { text-align: left; }
+.resp-img {
+  width: 220px;
+  height: 220px;
+  min-width: 220px;
+  min-height: 220px;
+  max-width: 220px;
+  max-height: 220px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 25%;
+  border: 5px solid var(--pink-pop);
+  box-shadow: 0 10px 25px rgba(255, 154, 158, 0.35);
+  display: block;
+}
+.resp-content { flex: 1; min-width: 0; text-align: left; }
 .resp-content h3 { font-size: 2rem; color: var(--text-main); margin-bottom: 5px; }
 .resp-role { color: var(--pink-pop); font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
 .resp-content p { margin-top: 15px; opacity: 0.8; }
@@ -1094,8 +1111,27 @@ nav {
 .resp-socials i:hover { color: var(--blue-sky); }
 
 @media(max-width: 768px) {
-  .responsible-card { flex-direction: column; text-align: center; }
+  .responsible-card { flex-direction: column; text-align: center; padding: 35px 25px; gap: 25px; }
+  .resp-img {
+    width: 190px;
+    height: 190px;
+    min-width: 190px;
+    min-height: 190px;
+    max-width: 190px;
+    max-height: 190px;
+  }
   .resp-content { text-align: center; }
+}
+
+@media(max-width: 480px) {
+  .resp-img {
+    width: 160px;
+    height: 160px;
+    min-width: 160px;
+    min-height: 160px;
+    max-width: 160px;
+    max-height: 160px;
+  }
 }
 
 .gallery-wrapper { column-count: 3; column-gap: 25px; }
