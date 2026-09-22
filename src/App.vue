@@ -83,7 +83,7 @@
       <div class="blob-bg" style="background: var(--pink-soft); top: 10%; left: 10%; width: 300px; height: 300px; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;"></div>
       <div class="blob-bg" style="background: var(--blue-soft); bottom: 10%; right: 10%; width: 400px; height: 400px; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;"></div>
 
-      <h4 style="color: var(--blue-sky); letter-spacing: 4px; margin-bottom: 15px; font-weight: 800;">SEASON 2026</h4>
+      <h4 style="color: var(--blue-sky); letter-spacing: 4px; margin-bottom: 15px; font-weight: 800;">{{ currentSeasonName.toUpperCase() }}</h4>
       <h1>Time to <span ref="typedText" class="highlight"></span></h1>
       <p>Experiențe legendare, prieteni noi și cursuri academice de calitate/calitative în toată Europa. <br>Aventura ta începe aici.</p>
       <div style="margin-top: 40px;">
@@ -98,7 +98,7 @@
         <p>Destinații</p>
       </div>
       <div class="stat-item">
-        <h3>{{ averageFee }}€</h3>
+        <h3>{{ averageFeeDisplay }}</h3>
         <p>Cost Mediu</p>
       </div>
       <div class="stat-item">
@@ -132,9 +132,9 @@
     <section id="courses" class="section-padding" style="background: #ffffff;">
         <div class="blob-bg" style="background: var(--pink-soft); top: 15%; left: 10%; width: 180px; height: 180px; border-radius: 50% 50% 60% 40% / 60% 40% 50% 50%; z-index:0; position:absolute; filter: blur(8px); opacity:0.28;"></div>
       <h2 class="text-center" style="margin-bottom: 24px;" data-aos="zoom-in">Destinatii Europene</h2>
-      <p class="text-center" style="margin-bottom: 45px; color: var(--pink-pop); font-weight: 700; letter-spacing: 1px;">CLICK PE IMAGINI PENTRU DETALII</p>
+      <p v-if="coursesList.length > 0" class="text-center" style="margin-bottom: 45px; color: var(--pink-pop); font-weight: 700; letter-spacing: 1px;">CLICK PE IMAGINI PENTRU DETALII</p>
 
-      <div class="swiper mySwiper">
+      <div v-if="coursesList.length > 0" class="swiper mySwiper">
         <div class="swiper-wrapper">
           <div
               v-for="(course, index) in coursesList"
@@ -153,6 +153,24 @@
           </div>
         </div>
         <div class="swiper-pagination"></div>
+      </div>
+
+      <div v-else class="no-courses-box" data-aos="zoom-in">
+        <div class="no-courses-icon">
+          <i class="fa-solid fa-calendar-xmark"></i>
+        </div>
+        <h3>Momentan nu sunt cursuri disponibile pentru {{ currentSeasonName }}</h3>
+        <p class="no-courses-desc">
+          {{ coursesNotice || 'În acest sezon nu sunt organizate cursuri BEST de către grupurile locale. Urmărește noutățile sau verifică direct pagina oficială BEST pentru celelalte tipuri de evenimente!' }}
+        </p>
+        <div v-if="seasonDeadlines" class="no-courses-deadlines">
+          <i class="fa-regular fa-clock"></i> {{ seasonDeadlines }}
+        </div>
+        <div>
+          <a href="https://www.best.eu.org/courses/list.jsp" target="_blank" rel="noopener noreferrer" class="btn-pop mouse-hover" style="display: inline-block; margin-top: 10px;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Vezi Evenimente pe best.eu.org
+          </a>
+        </div>
       </div>
     </section>
 
@@ -422,7 +440,31 @@ function getCourseImg(course) {
     return course.img;
   }
 }
-const coursesList = ref(coursesData);
+const isWrapped = coursesData && !Array.isArray(coursesData) && Array.isArray(coursesData.courses);
+const rawCourses = isWrapped ? coursesData.courses : (Array.isArray(coursesData) ? coursesData : []);
+const coursesList = ref(rawCourses);
+
+const currentSeasonName = computed(() => {
+  if (coursesData && !Array.isArray(coursesData) && coursesData.season) {
+    return coursesData.season;
+  }
+  return 'SEASON 2026';
+});
+
+const coursesNotice = computed(() => {
+  if (coursesData && !Array.isArray(coursesData) && coursesData.notice) {
+    return coursesData.notice;
+  }
+  return '';
+});
+
+const seasonDeadlines = computed(() => {
+  if (coursesData && !Array.isArray(coursesData) && coursesData.deadlines) {
+    return coursesData.deadlines;
+  }
+  return '';
+});
+
 const destinationsCount = computed(() => coursesList.value.length);
 const averageFee = computed(() => {
   const fees = coursesList.value
@@ -433,13 +475,19 @@ const averageFee = computed(() => {
   const total = fees.reduce((sum, fee) => sum + fee, 0);
   return Math.round(total / fees.length);
 });
+
+const averageFeeDisplay = computed(() => {
+  if (destinationsCount.value === 0 || averageFee.value === 0) return '-';
+  return `${averageFee.value}€`;
+});
+
 const typedText = ref(null);
 const tiltElements = ref([]);
 const sakuraContainer = ref(null);
 const cursorDot = ref(null);
 const cursorOutline = ref(null);
 const isModalOpen = ref(false);
-const currentModalData = ref(coursesData[0] ?? {
+const currentModalData = ref(rawCourses[0] ?? {
   city: '',
   country: '',
   title: '',
@@ -570,45 +618,47 @@ onMounted(() => {
     typeSpeed: 80, backSpeed: 50, loop: true
   });
 
-  new Swiper(".mySwiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    simulateTouch: true,
-    allowTouchMove: true,
-    touchRatio: 1.1,
-    threshold: 2,
-    shortSwipes: true,
-    longSwipesRatio: 0.2,
-    preventClicks: false,
-    preventClicksPropagation: false,
-    centeredSlides: true,
-    slidesPerView: 3.4,
-    initialSlide: 1,
-    loop: true,
-    coverflowEffect: {
-      rotate: 18,
-      stretch: -52,
-      depth: 190,
-      modifier: 1,
-      slideShadows: false,
-    },
-    pagination: { el: ".swiper-pagination", clickable: true },
-    mousewheel: {
-      forceToAxis: false,
-      releaseOnEdges: true,
-      sensitivity: 1,
-    },
-    keyboard: {
-      enabled: true,
-      onlyInViewport: true,
-    },
-    breakpoints: {
-      0: { slidesPerView: 1.1 },
-      640: { slidesPerView: 1.9 },
-      1024: { slidesPerView: 2.8 },
-      1360: { slidesPerView: 3.4 }
-    }
-  });
+  if (coursesList.value.length > 0) {
+    new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      simulateTouch: true,
+      allowTouchMove: true,
+      touchRatio: 1.1,
+      threshold: 2,
+      shortSwipes: true,
+      longSwipesRatio: 0.2,
+      preventClicks: false,
+      preventClicksPropagation: false,
+      centeredSlides: true,
+      slidesPerView: 3.4,
+      initialSlide: 1,
+      loop: coursesList.value.length > 3,
+      coverflowEffect: {
+        rotate: 18,
+        stretch: -52,
+        depth: 190,
+        modifier: 1,
+        slideShadows: false,
+      },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      mousewheel: {
+        forceToAxis: false,
+        releaseOnEdges: true,
+        sensitivity: 1,
+      },
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+      },
+      breakpoints: {
+        0: { slidesPerView: 1.1 },
+        640: { slidesPerView: 1.9 },
+        1024: { slidesPerView: 2.8 },
+        1360: { slidesPerView: 3.4 }
+      }
+    });
+  }
 
   const createPetals = () => {
     const container = sakuraContainer.value;
@@ -1158,4 +1208,53 @@ input:focus, textarea:focus { border-color: var(--pink-pop); background: white; 
   .rules-grid { grid-template-columns: 1fr; }
   .tab-content { padding: 30px 20px; }
 }
+
+.no-courses-box {
+  max-width: 680px;
+  margin: 30px auto 10px;
+  padding: 50px 35px;
+  background: linear-gradient(135deg, #ffffff 0%, #fffbfb 100%);
+  border-radius: 28px;
+  border: 2px dashed var(--pink-soft);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(255, 154, 158, 0.12);
+  position: relative;
+  z-index: 2;
+}
+
+.no-courses-icon {
+  font-size: 3.5rem;
+  color: var(--pink-pop);
+  margin-bottom: 18px;
+}
+
+.no-courses-box h3 {
+  font-size: 1.6rem;
+  color: var(--blue-dark);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.no-courses-desc {
+  color: #666;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 0 auto 20px;
+}
+
+.no-courses-deadlines {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0f5ff;
+  color: var(--blue-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(137, 247, 254, 0.3);
+}
+
 </style>
