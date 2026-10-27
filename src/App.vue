@@ -1,6 +1,6 @@
 <template>
   <div class="landing-container">
-    <a class="skip-link" href="#main-content" :inert="isModalOpen">Sari la conținut</a>
+    <a class="skip-link" href="#main-content" :inert="isModalOpen">{{ t('text000') }}</a>
     <Teleport to="body">
       <div id="sakura-container" ref="sakuraContainer" aria-hidden="true"></div>
     </Teleport>
@@ -8,21 +8,21 @@
     <transition name="modal-fade">
       <div v-if="isModalOpen" class="modal-overlay active" @click.self="closeModal">
         <div ref="modalElement" class="modal-content" :class="{ 'gallery-dialog': galleryIndex !== null }" role="dialog" aria-modal="true" :aria-labelledby="galleryIndex !== null ? 'gallery-dialog-title' : 'course-dialog-title'" tabindex="-1">
-          <button ref="modalClose" type="button" class="modal-close" aria-label="Închide detaliile cursului" @click="closeModal">
-            Închide
+          <button ref="modalClose" type="button" class="modal-close" :aria-label="t('text001')" @click="closeModal">
+            {{ t('text002') }}
           </button>
 
           <template v-if="galleryIndex !== null">
-            <h2 id="gallery-dialog-title" class="sr-only">Amintiri din călătorii</h2>
+            <h2 id="gallery-dialog-title" class="sr-only">{{ t('text003') }}</h2>
             <div class="gallery-stage" @touchstart.passive="startGallerySwipe" @touchend.passive="endGallerySwipe">
               <Transition name="photo" mode="out-in">
-                <img :key="galleryIndex" :src="`/images/wallofmemories/${wallPhotos[galleryIndex].src}`" :width="wallPhotos[galleryIndex].width" :height="wallPhotos[galleryIndex].height" :alt="'Amintire dintr-un eveniment BEST ' + (galleryIndex + 1)" decoding="async">
+                <img :key="galleryIndex" :src="`/images/wallofmemories/${wallPhotos[galleryIndex].src}`" :width="wallPhotos[galleryIndex].width" :height="wallPhotos[galleryIndex].height" :alt="t('photo') + (galleryIndex + 1)" decoding="async">
               </Transition>
             </div>
             <div class="gallery-controls">
-              <button type="button" @click="changePhoto(-1)">Înapoi</button>
+              <button type="button" @click="changePhoto(-1)">{{ t('text004') }}</button>
               <span role="status" aria-live="polite">{{ galleryIndex + 1 }} / {{ wallPhotos.length }}</span>
-              <button type="button" @click="changePhoto(1)">Înainte</button>
+              <button type="button" @click="changePhoto(1)">{{ t('text005') }}</button>
             </div>
           </template>
           <template v-else>
@@ -37,36 +37,36 @@
           <h4 style="color: #666; margin-bottom: 15px;">{{ currentModalData.title }}</h4>
 
           <p class="modal-desc">
-            Curs BEST în <strong>{{ currentModalData.country }}</strong>. Detaliile și înscrierea sunt pe pagina organizatorului.
+            {{ t('text006') }} <strong>{{ currentModalData.country }}</strong>{{ t('text007') }}
           </p>
 
           <a :href="currentModalData.link" target="_blank" rel="noopener noreferrer" class="btn-pop" style="padding: 10px 30px; font-size: 0.9rem;">
-            Mă înscriu
+            {{ t('text008') }}
           </a>
           </template>
         </div>
       </div>
     </transition>
 
-    <nav ref="headerElement" :inert="isModalOpen" aria-label="Navigare principală" @keydown.esc="closeMenu(true)">
+    <nav ref="headerElement" :inert="isModalOpen" :aria-label="t('text009')" @keydown.esc="closeMenu(true)">
       <div class="logo mouse-hover">
-        <img src="/images/logo_best_courses.png" alt="BEST Courses Logo" class="nav-logo-img" style="height: 55px">
+        <img src="/images/logo_best_courses.png" :alt="t('text010')" class="nav-logo-img" style="height: 55px">
       </div>
-      <button ref="menuToggle" type="button" class="menu-toggle" :aria-expanded="isMenuOpen" aria-controls="navigation-links" aria-label="Deschide sau închide meniul" @click="isMenuOpen = !isMenuOpen">Meniu</button>
+      <button ref="menuToggle" type="button" class="menu-toggle" :aria-expanded="isMenuOpen" aria-controls="navigation-links" :aria-label="t('text011')" @click="isMenuOpen = !isMenuOpen">{{ t('text012') }}</button>
       <div id="navigation-links" class="nav-links" :class="{ 'is-open': isMenuOpen }" @click="closeMenu()">
-        <a v-for="item in navigationItems" :key="item.id" :href="`#${item.id}`" class="mouse-hover" :aria-current="activeSection === item.id ? 'location' : undefined">{{ item.label }}</a>
+        <a v-for="item in navigationItems" :key="item.id" :href="`#${item.id}`" class="mouse-hover" :aria-current="activeSection === item.id ? 'location' : undefined">{{ translateText(item.label) }}</a>
       </div>
-      <a href="#responsible" class="btn-pop mouse-hover" style="padding: 10px 25px; font-size: 0.9rem;" @click="closeMenu()">Lasă un mesaj</a>
+      <button type="button" class="btn-pop language-toggle" :aria-label="locale === 'ro' ? t('switchEn') : t('switchRo')" @click="toggleLanguage(); closeMenu()"><span :class="{ 'language-current': locale === 'ro' }" lang="ro">RO</span><span aria-hidden="true"> / </span><span :class="{ 'language-current': locale === 'en' }" lang="en">EN</span></button>
     </nav>
 
     <main id="main-content" tabindex="-1" :inert="isModalOpen">
     <section id="hero" ref="heroElement" class="hero">
       <div class="hero-copy">
       <p class="hero-season">{{ currentSeasonName.toUpperCase() }}</p>
-      <h1>Time to <span class="hero-typed-line"><span ref="typedText" class="highlight">BEST.</span></span></h1>
-      <p>Cursuri în Europa, prieteni noi și orașe de descoperit, alături de BEST.</p>
+      <h1>{{ t('text014') }} <span class="hero-typed-line"><span ref="typedText" class="highlight">{{ t('text015') }}</span></span></h1>
+      <p>{{ t('text016') }}</p>
       <div class="hero-actions">
-        <a href="#courses" class="btn-pop mouse-hover">Explorează cursurile</a>
+        <a href="#courses" class="btn-pop mouse-hover">{{ t('text017') }}</a>
       </div>
       </div>
       <div ref="treeElement" class="hero-art" aria-hidden="true">
@@ -82,21 +82,21 @@
 
     <section class="stats-bar" data-aos="fade-up">
       <div v-if="isSeasonClosed" class="stat-item">
-        <h3 class="season-closed-title">Înscrieri închise</h3>
-        <p>{{ seasonDeadlines }}</p>
+        <h3 class="season-closed-title">{{ t('text018') }}</h3>
+        <p>{{ translateText(seasonDeadlines) }}</p>
       </div>
       <template v-else>
       <div class="stat-item">
         <h3>{{ destinationsCount }}</h3>
-        <p>Destinații</p>
+        <p>{{ t('text019') }}</p>
       </div>
       <div class="stat-item">
         <h3>{{ averageFeeDisplay }}</h3>
-        <p>Taxă medie afișată</p>
+        <p>{{ t('text020') }}</p>
       </div>
       <div class="stat-item">
-        <h3>BEST</h3>
-        <p>Cursuri în Europa</p>
+        <h3>{{ t('text021') }}</h3>
+        <p>{{ t('text022') }}</p>
       </div>
       </template>
     </section>
@@ -104,7 +104,7 @@
     <section id="about" ref="aboutElement" class="section-padding about-section" aria-labelledby="about-title">
       <div class="about-layout">
       <div class="about-heading">
-        <h2 id="about-title">Despre</h2>
+        <h2 id="about-title">{{ t('text023') }}</h2>
         <svg class="about-blossom" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
           <path d="M18 89C44 70 54 50 87 24M45 65C42 48 36 39 25 29M66 43C82 47 95 43 107 34" fill="none" stroke="#a18cd1" stroke-width="1.8" stroke-linecap="round"/>
           <g fill="#fad0c4" stroke="#ff9a9e" stroke-width="1">
@@ -115,7 +115,7 @@
           <circle cx="26" cy="28" r="1.8" fill="#a18cd1"/>
         </svg>
       </div>
-      <div class="document-copy about-copy"><p>Pe parcursul fiecărui an, BEST organizează o serie de activități care le oferă studenților de la universitățile tehnice și nu numai șansa de a-și aprofunda domeniile de studiu, de a lega prietenii noi, dar și de a stabili contacte, perfecționându-și, în același timp, limba engleză. Fiecare eveniment BEST adună un grup de aproximativ 20–30 de studenți care au același scop: experiențe unice, pline de distracție, departe de cotidianul universitar.</p><p>Cursurile de sezon le oferă studenților oportunitatea de a combina învățământul academic tradițional cu metode educaționale alternative. Prin intermediul activităților sociale și culturale desfășurate în timpul acestor cursuri, studenții vor relaționa cu persoane din diferite culturi, având șansa de a crea prietenii pe viață. An de an, peste 2.000 de studenți se alătură aventurii academice și sociale oferite de cursurile BEST.</p></div>
+      <div class="document-copy about-copy"><p>{{ t('text024') }}</p><p>{{ t('text025') }}</p></div>
       </div>
     </section>
 
@@ -125,81 +125,81 @@
         <path class="travel-route-line" d="M25 20C95 70 5 120 45 180S100 260 45 320S5 400 70 460"/>
         <circle cx="25" cy="20" r="5"/><circle cx="70" cy="460" r="5"/>
       </svg>
-      <h2 class="text-center">Ghid de aplicare</h2>
+      <h2 class="text-center">{{ t('text026') }}</h2>
 
       <div class="tabs-container">
-        <div ref="tabsElement" class="tabs-header" role="tablist" aria-label="Ghid de aplicare" @keydown="handleTabKey">
-          <button v-for="tab in guideTabs" :key="tab.id" :id="`tab-${tab.id}`" type="button" role="tab" :aria-selected="activeTab === tab.id" :aria-controls="`panel-${tab.id}`" :tabindex="activeTab === tab.id ? 0 : -1" @click="activeTab = tab.id" :class="{active: activeTab === tab.id}">{{ tab.label }}</button>
+        <div ref="tabsElement" class="tabs-header" role="tablist" :aria-label="t('text026')" @keydown="handleTabKey">
+          <button v-for="tab in guideTabs" :key="tab.id" :id="`tab-${tab.id}`" type="button" role="tab" :aria-selected="activeTab === tab.id" :aria-controls="`panel-${tab.id}`" :tabindex="activeTab === tab.id ? 0 : -1" @click="activeTab = tab.id" :class="{active: activeTab === tab.id}">{{ translateText(tab.label) }}</button>
         </div>
 
         <div class="tab-content card-pop document-copy">
           <div v-show="activeTab === 'cine'" id="panel-cine" role="tabpanel" aria-labelledby="tab-cine" tabindex="0">
-<h3>Cine poate aplica?</h3>
-<p>Orice student din cadrul Universității Transilvania poate aplica la cursurile de sezon BEST.</p>
-<p>Dacă se află în anul terminal, trebuie să fie student doar în momentul aplicării.</p>
-<div class="eligibility-grid"><div class="eligibility-col"><h4>Un student poate aplica la:</h4><ul class="guide-list">
-<li>maximum 3 cursuri BEST (BEST Courses)</li>
-<li>maximum 3 evenimente despre educație (Symposium on Education)</li>
-</ul></div><div class="eligibility-col"><h4>Un student poate participa la:</h4><ul class="guide-list">
-<li>maximum 3 cursuri BEST (BEST Courses) în timpul perioadei de studii</li>
-<li>maximum 2 cursuri BEST (BEST Courses) în sezoanele de vară</li>
-<li>maximum 1 curs BEST (BEST Courses) pe fiecare sezon</li>
-<li>maximum 3 evenimente despre educație (Symposium on Education) în timpul perioadei de studii</li>
+<h3>{{ t('text027') }}</h3>
+<p>{{ t('text028') }}</p>
+<p>{{ t('text029') }}</p>
+<div class="eligibility-grid"><div class="eligibility-col"><h4>{{ t('text030') }}</h4><ul class="guide-list">
+<li>{{ t('text031') }}</li>
+<li>{{ t('text032') }}</li>
+</ul></div><div class="eligibility-col"><h4>{{ t('text033') }}</h4><ul class="guide-list">
+<li>{{ t('text034') }}</li>
+<li>{{ t('text035') }}</li>
+<li>{{ t('text036') }}</li>
+<li>{{ t('text037') }}</li>
 </ul></div></div>
           </div>
 
           <div v-show="activeTab === 'cum'" id="panel-cum" role="tabpanel" aria-labelledby="tab-cum" tabindex="0">
-<h3>Cum pot aplica?</h3>
-<p>Pentru a aplica la un eveniment BEST, există câteva reguli pe care trebuie să le îndeplinești și o procedură care trebuie respectată:</p>
-<h4>O aplicație este formată din:</h4>
+<h3>{{ t('text038') }}</h3>
+<p>{{ t('text039') }}</p>
+<h4>{{ t('text040') }}</h4>
 <ul class="guide-list">
-<li>crearea contului pe <a href="https://best.eu.org/" target="_blank" rel="noopener noreferrer">www.best.eu.org</a> (site-ul general BEST)</li>
-<li>o scrisoare de motivație</li>
-<li>răspunsul la întrebările evenimentului BEST la care aplici (pot fi de la 1 la 3 întrebări)</li>
+<li>{{ t('text041') }} <a href="https://best.eu.org/" target="_blank" rel="noopener noreferrer">{{ t('text042') }}</a> {{ t('text043') }}</li>
+<li>{{ t('text044') }}</li>
+<li>{{ t('text045') }}</li>
 </ul>
-<h4>Ce trebuie să faci?</h4>
+<h4>{{ t('text046') }}</h4>
 <ol class="guide-list">
-<li>Mergi la <a href="https://www.best.eu.org/courses/list.jsp" target="_blank" rel="noopener noreferrer">lista de evenimente</a>, alege evenimentul la care dorești să aplici și apasă butonul „Apply”.</li>
-<li>Introdu adresa ta de e-mail și parola, dacă nu ești deja conectat (dacă nu ai încă un cont, înregistrează-te <a href="https://best.eu.org/account/registration.jsp" target="_blank" rel="noopener noreferrer">aici</a>).</li>
-<li>După crearea contului, <a href="#responsible">contactează-ne</a> să ne soliciți să-ți validăm contul.</li>
-<li>Aplică la cursul/cursurile pe care le-ai ales.</li>
-<li>Plătește depozitul de 40 de euro la BEST Brașov dacă ai fost acceptat la unul dintre evenimente. Vei primi această sumă înapoi în urma participării fără probleme la curs și a completării formularului de feedback după întoarcerea în țară.</li>
-<li>Caută și găsește o metodă de a ajunge la eveniment (avion, tren, autocar).</li>
-<li>Participă la eveniment respectând programul realizat de Grupul Local BEST care organizează cursul.</li>
-<li>Plătește taxa de participare (taxa pentru participanții din România este de 60% din taxa cursului ales).</li>
-<li>Bucură-te de cele trei mese pe zi, oferite de Grupul Local BEST organizator.</li>
-<li>Evaluează la final cursul pe <a href="https://best.eu.org/account/applications.jsp" target="_blank" rel="noopener noreferrer">www.best.eu.org</a>.</li>
+<li>{{ t('text047') }} <a href="https://www.best.eu.org/courses/list.jsp" target="_blank" rel="noopener noreferrer">{{ t('text048') }}</a>{{ t('text049') }}</li>
+<li>{{ t('text050') }} <a href="https://best.eu.org/account/registration.jsp" target="_blank" rel="noopener noreferrer">{{ t('text051') }}</a>).</li>
+<li>{{ t('text052') }} <a href="#responsible">{{ t('text053') }}</a> {{ t('text054') }}</li>
+<li>{{ t('text055') }}</li>
+<li>{{ t('text056') }}</li>
+<li>{{ t('text057') }}</li>
+<li>{{ t('text058') }}</li>
+<li>{{ t('text059') }}</li>
+<li>{{ t('text060') }}</li>
+<li>{{ t('text061') }} <a href="https://best.eu.org/account/applications.jsp" target="_blank" rel="noopener noreferrer">{{ t('text042') }}</a>.</li>
 </ol>
-<h4>Ai întrebări?</h4>
-<p>Ia legătura cu <a href="#responsible">responsabilul de cursuri de sezon</a> prin e-mail.</p>
+<h4>{{ t('text062') }}</h4>
+<p>{{ t('text063') }} <a href="#responsible">{{ t('text064') }}</a> {{ t('text065') }}</p>
           </div>
 
           <div v-show="activeTab === 'scrisoare'" id="panel-scrisoare" role="tabpanel" aria-labelledby="tab-scrisoare" tabindex="0">
-<h3>Scrisoarea de motivație</h3>
-<p>Pentru orice curs la care vă decideți să aplicați, trebuie să știți că este necesară o scrisoare de motivație, pe baza căreia grupurile locale BEST din toată Europa își vor selecta participanții. Criteriile de selecție variază de la un grup la altul, dar scrisoarea de motivație are, cu siguranță, cea mai mare pondere în alegerea participanților.</p>
-<p>Nu există o rețetă perfectă, din cauza multitudinii de criterii, dar, cu siguranță, organizatorii vor vrea să știe:</p>
-<p>Cine ești? Care sunt studiile și pasiunile tale, ce cunoștințe ai în domeniul cursului și cum îți place să te distrezi? Prezentarea ta nu trebuie să fie lungă, dar trebuie să cuprindă informații relevante despre preocupările tale și despre modul în care ai putea contribui la formarea unui grup de participanți diversificat și receptiv.</p>
-<p>De ce ai ales cursul acesta? Citește cu atenție descrierea cursului și ai grijă să nu le încurci dacă aplici la mai multe cursuri. Grupurile BEST vor fi curioase să afle motivația ta, iar aceasta cântărește adesea cel mai mult în decizia lor. Scrie motive specifice! Așa vor ști că scrisoarea ta nu este una standard, cu care aplici la toate cursurile, și că interesul tău este real!</p>
-<p>De ce ai ales acest oraș sau această țară? Vrei sau nu, cei care vor face selecția se vor simți întotdeauna puțin gâdilați în orgoliu dacă le dai și un motiv legat de țara lor pentru care vrei să mergi acolo! Nu insista însă prea mult, deoarece există riscul să dai impresia că mergi acolo ca turist și că pui cursurile pe locul al doilea.</p>
-<p>Dacă adaugi acestor informații și puțină originalitate în formulare, cu siguranță vei avea o șansă în plus. Oricine apreciază simțul umorului și creativitatea, așa că nu ezita să le folosești când ai ocazia.</p>
-<p>Acum nu mai rămâne decât să aplici! Fă-ți curaj, apucă-te de scris și poți petrece o săptămână cum nici nu ai îndrăznit să speri.</p>
+<h3>{{ t('text066') }}</h3>
+<p>{{ t('text067') }}</p>
+<p>{{ t('text068') }}</p>
+<p>{{ t('text069') }}</p>
+<p>{{ t('text070') }}</p>
+<p>{{ t('text071') }}</p>
+<p>{{ t('text072') }}</p>
+<p>{{ t('text073') }}</p>
           </div>
 
           <div v-show="activeTab === 'validare'" id="panel-validare" role="tabpanel" aria-labelledby="tab-validare" tabindex="0">
-<h3>Validare cont</h3>
-<p>Pentru ca aplicația ta la curs să devină vizibilă, trebuie să ai contul activat.</p>
-<h4>Cum îmi activez contul?</h4>
-<p>Trimite un e-mail <a href="#responsible">responsabilului de cursuri de sezon</a>, specificând următoarele:</p>
+<h3>{{ t('text074') }}</h3>
+<p>{{ t('text075') }}</p>
+<h4>{{ t('text076') }}</h4>
+<p>{{ t('text077') }} <a href="#responsible">{{ t('text078') }}</a>{{ t('text079') }}</p>
 <ul class="guide-list">
-<li>numele complet</li>
-<li>adresa de e-mail</li>
-<li>numărul de telefon</li>
-<li>facultatea</li>
-<li>anul universitar</li>
-<li>când ești disponibil pentru a fi contactat telefonic</li>
+<li>{{ t('text080') }}</li>
+<li>{{ t('text081') }}</li>
+<li>{{ t('text082') }}</li>
+<li>{{ t('text083') }}</li>
+<li>{{ t('text084') }}</li>
+<li>{{ t('text085') }}</li>
 </ul>
-<p>Te vom contacta telefonic pentru confirmarea cererii și pentru o scurtă conversație în limba engleză.</p>
-<p>Dacă totul este în regulă, vei avea contul activat în cel mai scurt timp.</p>
+<p>{{ t('text086') }}</p>
+<p>{{ t('text087') }}</p>
           </div>
         </div>
       </div>
@@ -207,11 +207,11 @@
 
 
     <section id="costs" class="section-padding costs-section" data-aos="fade-up">
-      <h2 class="text-center">Costuri</h2>
+      <h2 class="text-center">{{ t('text088') }}</h2>
       <div class="card-container">
-        <div class="cost-card"><h3>Taxa cursului</h3><p>Plătește taxa de participare (taxa pentru participanții din România este de 60% din taxa cursului ales).</p></div>
-        <div class="cost-card"><h3>Depozit returnabil</h3><p>Plătește depozitul de 40 de euro la BEST Brașov dacă ai fost acceptat la unul dintre evenimente. Vei primi această sumă înapoi în urma participării fără probleme la curs și a completării formularului de feedback după întoarcerea în țară.</p></div>
-        <div class="cost-card"><h3>Drumul până acolo</h3><p>Caută și găsește o metodă de a ajunge la eveniment (avion, tren, autocar).</p><p>Ce nu este inclus: călătoria la eveniment și întoarcerea de la acesta.</p></div>
+        <div class="cost-card"><h3>{{ t('text089') }}</h3><p>{{ t('text059') }}</p></div>
+        <div class="cost-card"><h3>{{ t('text090') }}</h3><p>{{ t('text056') }}</p></div>
+        <div class="cost-card"><h3>{{ t('text091') }}</h3><p>{{ t('text057') }}</p><p>{{ t('text092') }}</p></div>
       </div>
     </section>
 
@@ -220,8 +220,8 @@
         <path class="travel-route-line" d="M70 20C5 80 95 125 55 190S5 270 60 330S95 410 30 460"/>
         <circle cx="70" cy="20" r="5"/><circle cx="30" cy="460" r="5"/>
       </svg>
-      <h2 class="text-center" style="margin-bottom: 20px;">Destinații europene</h2>
-      <p v-if="coursesList.length > 0" class="text-center" style="margin-bottom: 28px; color: var(--pink-pop); font-weight: 700; letter-spacing: 1px;">APASĂ PE IMAGINI PENTRU DETALII</p>
+      <h2 class="text-center" style="margin-bottom: 20px;">{{ t('text093') }}</h2>
+      <p v-if="coursesList.length > 0" class="text-center" style="margin-bottom: 28px; color: var(--pink-pop); font-weight: 700; letter-spacing: 1px;">{{ t('text094') }}</p>
 
       <div v-if="coursesList.length > 0" class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -238,7 +238,7 @@
                 {{ course.title }}
               </span>
             </span>
-            <button type="button" class="course-open" @click="openModal(course)"><span class="sr-only">Vezi detalii: {{ course.title }}, {{ course.city }}</span></button>
+            <button type="button" class="course-open" @click="openModal(course)"><span class="sr-only">{{ t('text095') }} {{ course.title }}, {{ course.city }}</span></button>
           </article>
         </div>
         <div class="swiper-pagination"></div>
@@ -248,83 +248,83 @@
         <div class="no-courses-icon">
           <i class="fa-solid fa-calendar-xmark"></i>
         </div>
-        <h3>Momentan nu sunt cursuri disponibile pentru {{ currentSeasonName }}</h3>
+        <h3>{{ t('text096') }} {{ currentSeasonName }}</h3>
         <p class="no-courses-desc">
-          {{ coursesNotice || 'În acest sezon nu sunt organizate cursuri BEST de către grupurile locale. Urmărește noutățile sau verifică direct pagina oficială BEST pentru celelalte tipuri de evenimente!' }}
+          {{ coursesNotice ? translateText(coursesNotice) : t('emptyFallback') }}
         </p>
         <div v-if="seasonDeadlines" class="no-courses-deadlines">
-          <i class="fa-regular fa-clock"></i> {{ seasonDeadlines }}
+          <i class="fa-regular fa-clock"></i> {{ translateText(seasonDeadlines) }}
         </div>
         <div>
           <a href="https://www.best.eu.org/courses/list.jsp" target="_blank" rel="noopener noreferrer" class="btn-pop mouse-hover" style="display: inline-block; margin-top: 10px;">
-            Vezi evenimentele pe best.eu.org
+            {{ t('text097') }}
           </a>
         </div>
       </div>
     </section>
 
     <section id="rules" class="section-padding" data-aos="fade-up">
-      <h2 class="text-center">Beneficii și responsabilități</h2>
+      <h2 class="text-center">{{ t('text098') }}</h2>
       <div class="rules-grid document-copy">
-        <div class="rules-column rules-benefits" :class="{ 'rules-expanded': openRules.benefits }"><h3><button id="benefits-toggle" type="button" class="rules-toggle" :aria-expanded="openRules.benefits" aria-controls="benefits-content" @click="openRules.benefits = !openRules.benefits"><span class="rules-heading-label">Beneficii</span><span class="rules-toggle-action">{{ openRules.benefits ? "Restrânge" : "Vezi toate" }}<span class="rules-chevron" aria-hidden="true"></span></span></button></h3><div class="rules-preview"><p>Cursuri, cazare, mese și activități: ce îți oferă organizatorii și ce plătești separat.</p><div class="rules-preview-tags" aria-hidden="true"><span>8 beneficii</span><span>4 costuri neincluse</span></div></div><div id="benefits-content" class="rules-disclosure" :class="{ expanded: openRules.benefits }" :inert="!openRules.benefits" :aria-hidden="!openRules.benefits" role="region" aria-labelledby="benefits-toggle"><div class="rules-disclosure-clip"><div class="rule-card"><p>Organizatorii vă vor oferi fără niciun cost suplimentar:</p><ul class="guide-list">
-<li>Un „kit de supraviețuire” care conține informații despre eveniment. Acest kit va fi oferit cu cel puțin trei săptămâni înaintea începerii evenimentului.</li>
-<li>Aproximativ 20 de ore de cursuri academice pe săptămână (cursuri, vizite la companii, studii de caz, lucru de laborator și sesiuni de training)</li>
-<li>Materiale de curs scrise în limba engleză</li>
-<li>Un certificat de participare</li>
-<li>Transport gratuit la sesiunile de curs și la toate activitățile organizate</li>
-<li>Un program cultural/social</li>
-<li>Trei mese pe zi, dintre care cel puțin una caldă, pe parcursul întregului eveniment, inclusiv în weekend</li>
-<li>Facilități de dormit corespunzătoare, precum și acces la un duș</li>
-</ul><div class="rules-exclusions"><h4>Ce nu este inclus:</h4><ul class="guide-list">
-<li>Călătoria la eveniment și întoarcerea de la acesta</li>
-<li>Băuturi și alimente suplimentare</li>
-<li>Unele dintre activitățile de seară (de exemplu, biletul la club)</li>
-<li>Asigurarea de călătorie și de sănătate</li>
+        <div class="rules-column rules-benefits" :class="{ 'rules-expanded': openRules.benefits }"><h3><button id="benefits-toggle" type="button" class="rules-toggle" :aria-expanded="openRules.benefits" aria-controls="benefits-content" @click="openRules.benefits = !openRules.benefits"><span class="rules-heading-label">{{ t('text099') }}</span><span class="rules-toggle-action">{{ openRules.benefits ? t('collapse') : t('showAll') }}<span class="rules-chevron" aria-hidden="true"></span></span></button></h3><div class="rules-preview"><p>{{ t('text100') }}</p><div class="rules-preview-tags" aria-hidden="true"><span>{{ t('text101') }}</span><span>{{ t('text102') }}</span></div></div><div id="benefits-content" class="rules-disclosure" :class="{ expanded: openRules.benefits }" :inert="!openRules.benefits" :aria-hidden="!openRules.benefits" role="region" aria-labelledby="benefits-toggle"><div class="rules-disclosure-clip"><div class="rule-card"><p>{{ t('text103') }}</p><ul class="guide-list">
+<li>{{ t('text104') }}</li>
+<li>{{ t('text105') }}</li>
+<li>{{ t('text106') }}</li>
+<li>{{ t('text107') }}</li>
+<li>{{ t('text108') }}</li>
+<li>{{ t('text109') }}</li>
+<li>{{ t('text110') }}</li>
+<li>{{ t('text111') }}</li>
+</ul><div class="rules-exclusions"><h4>{{ t('text112') }}</h4><ul class="guide-list">
+<li>{{ t('text113') }}</li>
+<li>{{ t('text114') }}</li>
+<li>{{ t('text115') }}</li>
+<li>{{ t('text116') }}</li>
 </ul></div></div></div></div></div>
-        <div class="rules-column rules-responsibilities" :class="{ 'rules-expanded': openRules.responsibilities }"><h3><button id="responsibilities-toggle" type="button" class="rules-toggle" :aria-expanded="openRules.responsibilities" aria-controls="responsibilities-content" @click="openRules.responsibilities = !openRules.responsibilities"><span class="rules-heading-label">Responsabilități</span><span class="rules-toggle-action">{{ openRules.responsibilities ? "Restrânge" : "Vezi toate" }}<span class="rules-chevron" aria-hidden="true"></span></span></button></h3><div class="rules-preview"><p>De la confirmarea participării până la evaluarea cursului: ce ai de făcut înainte, în timpul și după eveniment.</p><div class="rules-preview-tags" aria-hidden="true"><span>12 responsabilități</span><span>Returnarea depozitului</span></div></div><div id="responsibilities-content" class="rules-disclosure" :class="{ expanded: openRules.responsibilities }" :inert="!openRules.responsibilities" :aria-hidden="!openRules.responsibilities" role="region" aria-labelledby="responsibilities-toggle"><div class="rules-disclosure-clip"><div class="rule-card"><p>Există anumite cerințe care trebuie respectate pentru a putea participa la un eveniment BEST:</p><ul class="guide-list">
-<li>Dacă ești sigur că vei participa la un curs la care ai fost acceptat, nu uita să achiți acest depozit către Grupul Local BEST Brașov. Acesta este necesar pentru a confirma participarea la eveniment.</li>
-<li>În timpul evenimentului, participanții trebuie să se comporte într-o manieră civilizată, respectând oamenii indiferent de naționalitate sau de convingerile lor și în conformitate cu legile țării în care are loc evenimentul.</li>
-<li>Participanții trebuie să informeze grupul local BEST care organizează evenimentul despre data sosirii la locația specificată pe site-ul evenimentului, cu cel puțin o săptămână înainte de începerea acestuia.</li>
-<li>Participanții trebuie să sosească la locația specificată pe site-ul evenimentului cel târziu în ziua sosirii, la ora specificată. Aceștia pot pleca cel mai devreme în ziua plecării.</li>
-<li>La evenimentele cu o componentă academică, participanții trebuie să fie prezenți la întreaga parte academică a evenimentului. Participanții trebuie să fie la timp la începutul sesiunilor academice.</li>
-<li>Participanții trebuie să participe activ la toate activitățile și nu pot părăsi grupul, cu excepția cazurilor convenite cu organizatorii.</li>
-<li>În timpul evenimentului, participanții trebuie să plătească taxa de participare specificată, care variază în funcție de țara din care provin.</li>
-<li>Participanții nu pot consuma băuturi alcoolice și nu pot fi sub influența acestora în timpul cursurilor academice sau al altor activități stabilite în avans de organizatori.</li>
-<li>În lipsa unor motive medicale, participanții nu pot consuma substanțe cu efect stupefiant sau medicamente cu efecte similare.</li>
-<li>Participanții nu vor dormi în timpul cursurilor academice sau în timpul altor activități stabilite de organizatori.</li>
-<li>Participanții vor trebui să plătească pentru orice obiecte deteriorate, dacă se dovedește că acestea au fost deteriorate de ei.</li>
-<li>Participanții au obligația de a completa formularul de evaluare a evenimentului, pe site-ul BEST, după participare. Acest lucru trebuie făcut înainte de termenul limită specificat pe site-ul BEST.</li>
-</ul><p class="rules-note">Important: Depozitul va fi returnat după ce ai participat la eveniment, ți-ai respectat responsabilitățile și ai răspuns la mai mult de 70% din întrebările din formularul de evaluare de pe site-ul BEST.</p></div></div></div></div>
+        <div class="rules-column rules-responsibilities" :class="{ 'rules-expanded': openRules.responsibilities }"><h3><button id="responsibilities-toggle" type="button" class="rules-toggle" :aria-expanded="openRules.responsibilities" aria-controls="responsibilities-content" @click="openRules.responsibilities = !openRules.responsibilities"><span class="rules-heading-label">{{ t('text117') }}</span><span class="rules-toggle-action">{{ openRules.responsibilities ? t('collapse') : t('showAll') }}<span class="rules-chevron" aria-hidden="true"></span></span></button></h3><div class="rules-preview"><p>{{ t('text118') }}</p><div class="rules-preview-tags" aria-hidden="true"><span>{{ t('text119') }}</span><span>{{ t('text120') }}</span></div></div><div id="responsibilities-content" class="rules-disclosure" :class="{ expanded: openRules.responsibilities }" :inert="!openRules.responsibilities" :aria-hidden="!openRules.responsibilities" role="region" aria-labelledby="responsibilities-toggle"><div class="rules-disclosure-clip"><div class="rule-card"><p>{{ t('text121') }}</p><ul class="guide-list">
+<li>{{ t('text122') }}</li>
+<li>{{ t('text123') }}</li>
+<li>{{ t('text124') }}</li>
+<li>{{ t('text125') }}</li>
+<li>{{ t('text126') }}</li>
+<li>{{ t('text127') }}</li>
+<li>{{ t('text128') }}</li>
+<li>{{ t('text129') }}</li>
+<li>{{ t('text130') }}</li>
+<li>{{ t('text131') }}</li>
+<li>{{ t('text132') }}</li>
+<li>{{ t('text133') }}</li>
+</ul><p class="rules-note">{{ t('text134') }}</p></div></div></div></div>
       </div>
     </section>
 
 
     <section id="faq" class="section-padding" data-aos="fade-up">
-      <h2 class="text-center">FAQ</h2>
+      <h2 class="text-center">{{ t('text135') }}</h2>
       <div class="faq-container">
         <div class="faq-item" v-for="(faq, i) in faqs" :key="i" :class="{ open: faq.open }">
           <button type="button" class="faq-question" :aria-expanded="faq.open" :aria-controls="`faq-answer-${i}`" @click="faq.open = !faq.open">
-            <span>{{ faq.question }}</span>
+            <span>{{ translateText(faq.question) }}</span>
           </button>
           <div :id="`faq-answer-${i}`" class="faq-reveal" :class="{ expanded: faq.open }" :inert="!faq.open" :aria-hidden="!faq.open"><div class="faq-clip"><div class="faq-answer">
-            <p v-html="faq.answer.replace(/<b><b>/g, '<b>').replace(/<\/b><\/b>/g, '</b>')"></p>
+            <p v-html="translateText(faq.answer).replace(/<b><b>/g, '<b>').replace(/<\/b><\/b>/g, '</b>')"></p>
           </div></div></div>
         </div>
       </div>
     </section>
 
     <section id="responsible" class="section-padding" data-aos="fade-up">
-      <h2 class="text-center">Întrebări despre cursuri?</h2>
+      <h2 class="text-center">{{ t('text136') }}</h2>
 
       <div class="responsible-wrapper">
         <div class="responsible-card mouse-hover">
-          <img src="/images/ioana_vivaldi.jpeg" class="resp-img" alt="Ioana Bianca Renea">
+          <img src="/images/ioana_vivaldi.jpeg" class="resp-img" :alt="t('text137')">
           <div class="resp-content">
-            <h3>Ioana Bianca Renea</h3>
-            <p style="margin-bottom: 12px; line-height: 1.6;">Ai întrebări despre cursuri sau validarea contului? Scrie-i Ioanei.</p>
+            <h3>{{ t('text137') }}</h3>
+            <p style="margin-bottom: 12px; line-height: 1.6;">{{ t('text138') }}</p>
             <p style="font-size: 1rem; color: var(--blue-sky); font-weight: 600; margin: 0;">
               <a href="mailto:ioana-bianca.renea@best-eu.org" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-envelope"></i> ioana-bianca.renea@best-eu.org
+                <i class="fa-solid fa-envelope"></i> {{ t('text139') }}
               </a>
             </p>
           </div>
@@ -333,9 +333,9 @@
     </section>
 
     <section class="section-padding" data-aos="fade-up">
-      <h2 class="text-center" style="margin-bottom: 24px;">Amintiri din călătorii</h2>
+      <h2 class="text-center" style="margin-bottom: 24px;">{{ t('text003') }}</h2>
       <div class="gallery-wrapper">
-        <button v-for="(img, index) in wallPhotos" :key="img.src" type="button" class="gallery-trigger" :aria-label="'Deschide fotografia ' + (index + 1)" @click="openGallery(index)"><img
+        <button v-for="(img, index) in wallPhotos" :key="img.src" type="button" class="gallery-trigger" :aria-label="t('openPhoto') + (index + 1)" @click="openGallery(index)"><img
             :src="`/images/wallofmemories/${img.src}`"
             :srcset="`/images/wallofmemories/${img.small} ${img.smallWidth}w, /images/wallofmemories/${img.src} ${img.width}w`"
             sizes="(max-width: 768px) 90vw, 28vw"
@@ -344,7 +344,7 @@
             :width="img.width"
             :height="img.height"
             class="gallery-img"
-            :alt="'Amintire dintr-un eveniment BEST ' + (index + 1)"
+            :alt="t('photo') + (index + 1)"
         ></button>
       </div>
     </section>
@@ -355,29 +355,29 @@
       <div class="footer-content">
         <div class="footer-grid">
         <div class="footer-brand">
-          <img class="footer-logo" src="/images/logo_best_courses.png" alt="BEST Courses" loading="lazy" decoding="async">
+          <img class="footer-logo" src="/images/logo_best_courses.png" :alt="t('text140')" loading="lazy" decoding="async">
         <div class="footer-socials">
-          <a href="https://www.instagram.com/bestbrasov/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="BEST Brașov pe Instagram">
+          <a href="https://www.instagram.com/bestbrasov/" target="_blank" rel="noopener noreferrer" class="social-icon" :aria-label="t('text141')">
             <i class="fa-brands fa-instagram"></i>
           </a>
-          <a href="https://www.facebook.com/BESTBrasov" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="BEST Brașov pe Facebook">
+          <a href="https://www.facebook.com/BESTBrasov" target="_blank" rel="noopener noreferrer" class="social-icon" :aria-label="t('text142')">
             <i class="fa-brands fa-facebook-f"></i>
           </a>
         </div>
         </div>
         <div class="footer-location">
           <div class="footer-location-info">
-          <address>BEST Brașov, Căminul 15, Strada Universității 1, Brașov 500068</address>
-          <a class="footer-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=BEST%20Bra%C8%99ov%2C%20C%C4%83minul%2015%2C%20Strada%20Universit%C4%83%C8%9Bii%201%2C%20Bra%C8%99ov%20500068" target="_blank" rel="noopener noreferrer">Deschide în Google Maps</a>
+          <address>{{ t('text143') }}</address>
+          <a class="footer-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=BEST%20Bra%C8%99ov%2C%20C%C4%83minul%2015%2C%20Strada%20Universit%C4%83%C8%9Bii%201%2C%20Bra%C8%99ov%20500068" target="_blank" rel="noopener noreferrer">{{ t('text144') }}</a>
           </div>
           <div class="footer-map">
-            <iframe title="Hartă: BEST Brașov, Strada Universității 1" src="https://maps.google.com/maps?q=BEST%20Bra%C8%99ov%2C%20C%C4%83minul%2015%2C%20Strada%20Universit%C4%83%C8%9Bii%201%2C%20Bra%C8%99ov%20500068&amp;output=embed" width="600" height="260" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            <iframe :title="t('text145')" src="https://maps.google.com/maps?q=BEST%20Bra%C8%99ov%2C%20C%C4%83minul%2015%2C%20Strada%20Universit%C4%83%C8%9Bii%201%2C%20Bra%C8%99ov%20500068&amp;output=embed" width="600" height="260" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
           </div>
         </div>
         </div>
         <div class="footer-bottom">
-          <p>BEST © 2026. All rights reserved.</p>
-          <p>Made with &lt;3 by BEST Brașov</p>
+          <p>{{ t('text146') }}</p>
+          <p>{{ t('text147') }}</p>
         </div>
       </div>
     </footer>
@@ -390,6 +390,26 @@ import coursesData from './courses.json';
 import galleryData from './gallery.json';
 import cherryCanopy from './cherry-canopy.json';
 import Typed from 'typed.js';
+import { useLanguage } from './i18n.js';
+
+const { locale, t, translateText, toggleLanguage } = useLanguage();
+watch(locale, async () => {
+  document.documentElement.lang = locale.value;
+  document.title = t('pageTitle');
+  const metadata = {
+    'meta[name="description"]': t('description'),
+    'meta[property="og:title"]': t('ogTitle'),
+    'meta[property="og:description"]': t('ogDescription'),
+    'meta[property="og:locale"]': locale.value === 'ro' ? 'ro_RO' : 'en_GB',
+    'meta[name="twitter:title"]': t('ogTitle'),
+    'meta[name="twitter:description"]': t('twitterDescription'),
+  };
+  for (const [selector, content] of Object.entries(metadata)) document.querySelector(selector)?.setAttribute('content', content);
+  await nextTick();
+  updateTabIndicator();
+  previousIntroProgress = null;
+  queueIntroTransition();
+}, { immediate: true });
 
 const headerElement = ref(null);
 const heroElement = ref(null);
@@ -797,7 +817,7 @@ onMounted(async () => {
     const [{ default: Swiper }] = await Promise.all([import('swiper/bundle'), import('swiper/css/bundle')]);
     new Swiper(".mySwiper", {
       effect: "coverflow",
-      a11y: { slideRole: 'group', slideLabelMessage: null, paginationBulletMessage: 'Mergi la destinația {{index}}' },
+      a11y: { slideRole: 'group', slideLabelMessage: null, paginationBulletMessage: t('pagination') },
       grabCursor: true,
       simulateTouch: true,
       allowTouchMove: true,
@@ -1875,5 +1895,11 @@ footer .social-icon { width: 44px; height: 44px; font-size: 1.2rem; background: 
 }
 @media (min-width: 768px) {
   .hero + .stats-bar { margin-top: -72px; z-index: 3; }
+}
+nav > .language-toggle { display: inline-flex; justify-content: center; align-items: center; gap: 5px; padding: 10px 18px; min-width: 90px; font-size: .9rem; white-space: nowrap; flex-shrink: 0; }
+.language-toggle span[lang] { font-weight: 500; }
+.language-toggle .language-current { font-weight: 800 !important; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 480px) {
+  nav > .language-toggle { min-width: 78px; padding: 10px 12px !important; font-size: .8rem !important; }
 }
 </style>

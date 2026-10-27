@@ -1,0 +1,726 @@
+{
+  "text000": {
+    "ro": "Sari la conținut",
+    "en": "Skip to content"
+  },
+  "text001": {
+    "ro": "Închide detaliile cursului",
+    "en": "Close course details"
+  },
+  "text002": {
+    "ro": "Închide",
+    "en": "Close"
+  },
+  "text003": {
+    "ro": "Amintiri din călătorii",
+    "en": "Travel memories"
+  },
+  "text004": {
+    "ro": "Înapoi",
+    "en": "Previous"
+  },
+  "text005": {
+    "ro": "Înainte",
+    "en": "Next"
+  },
+  "text006": {
+    "ro": "Curs BEST în",
+    "en": "BEST course in"
+  },
+  "text007": {
+    "ro": ". Detaliile și înscrierea sunt pe pagina organizatorului.",
+    "en": ". Details and applications are available on the organiser's page."
+  },
+  "text008": {
+    "ro": "Mă înscriu",
+    "en": "Apply"
+  },
+  "text009": {
+    "ro": "Navigare principală",
+    "en": "Main navigation"
+  },
+  "text010": {
+    "ro": "BEST Courses Logo",
+    "en": "BEST Courses Logo"
+  },
+  "text011": {
+    "ro": "Deschide sau închide meniul",
+    "en": "Open or close the menu"
+  },
+  "text012": {
+    "ro": "Meniu",
+    "en": "Menu"
+  },
+  "text013": {
+    "ro": "Lasă un mesaj",
+    "en": "Leave a message"
+  },
+  "text014": {
+    "ro": "Time to",
+    "en": "Time to"
+  },
+  "text015": {
+    "ro": "BEST.",
+    "en": "BEST."
+  },
+  "text016": {
+    "ro": "Cursuri în Europa, prieteni noi și orașe de descoperit, alături de BEST.",
+    "en": "Courses in Europe, new friends and cities to discover with BEST."
+  },
+  "text017": {
+    "ro": "Explorează cursurile",
+    "en": "Explore the courses"
+  },
+  "text018": {
+    "ro": "Înscrieri închise",
+    "en": "Applications closed"
+  },
+  "text019": {
+    "ro": "Destinații",
+    "en": "Destinations"
+  },
+  "text020": {
+    "ro": "Taxă medie afișată",
+    "en": "Average advertised fee"
+  },
+  "text021": {
+    "ro": "BEST",
+    "en": "BEST"
+  },
+  "text022": {
+    "ro": "Cursuri în Europa",
+    "en": "Courses in Europe"
+  },
+  "text023": {
+    "ro": "Despre",
+    "en": "About"
+  },
+  "text024": {
+    "ro": "Pe parcursul fiecărui an, BEST organizează o serie de activități care le oferă studenților de la universitățile tehnice și nu numai șansa de a-și aprofunda domeniile de studiu, de a lega prietenii noi, dar și de a stabili contacte, perfecționându-și, în același timp, limba engleză. Fiecare eveniment BEST adună un grup de aproximativ 20–30 de studenți care au același scop: experiențe unice, pline de distracție, departe de cotidianul universitar.",
+    "en": "Throughout the year, BEST organises activities that give students from technical universities and beyond the chance to deepen their knowledge, make new friends and build connections while improving their English. Each BEST event brings together around 20–30 students with the same goal: unique, fun experiences away from everyday university life."
+  },
+  "text025": {
+    "ro": "Cursurile de sezon le oferă studenților oportunitatea de a combina învățământul academic tradițional cu metode educaționale alternative. Prin intermediul activităților sociale și culturale desfășurate în timpul acestor cursuri, studenții vor relaționa cu persoane din diferite culturi, având șansa de a crea prietenii pe viață. An de an, peste 2.000 de studenți se alătură aventurii academice și sociale oferite de cursurile BEST.",
+    "en": "Seasonal courses offer students the opportunity to combine traditional academic learning with alternative educational methods. Through the social and cultural activities held during these courses, students meet people from different cultures and have the chance to form lifelong friendships. Every year, more than 2,000 students join the academic and social adventure offered by BEST courses."
+  },
+  "text026": {
+    "ro": "Ghid de aplicare",
+    "en": "Application guide"
+  },
+  "text027": {
+    "ro": "Cine poate aplica?",
+    "en": "Who can apply?"
+  },
+  "text028": {
+    "ro": "Orice student din cadrul Universității Transilvania poate aplica la cursurile de sezon BEST.",
+    "en": "Any student at Transilvania University can apply for BEST seasonal courses."
+  },
+  "text029": {
+    "ro": "Dacă se află în anul terminal, trebuie să fie student doar în momentul aplicării.",
+    "en": "Final-year students only need to be enrolled as students at the time of application."
+  },
+  "text030": {
+    "ro": "Un student poate aplica la:",
+    "en": "A student may apply for:"
+  },
+  "text031": {
+    "ro": "maximum 3 cursuri BEST (BEST Courses)",
+    "en": "up to 3 BEST Courses"
+  },
+  "text032": {
+    "ro": "maximum 3 evenimente despre educație (Symposium on Education)",
+    "en": "up to 3 education events (Symposium on Education)"
+  },
+  "text033": {
+    "ro": "Un student poate participa la:",
+    "en": "A student may attend:"
+  },
+  "text034": {
+    "ro": "maximum 3 cursuri BEST (BEST Courses) în timpul perioadei de studii",
+    "en": "up to 3 BEST Courses during their studies"
+  },
+  "text035": {
+    "ro": "maximum 2 cursuri BEST (BEST Courses) în sezoanele de vară",
+    "en": "up to 2 BEST Courses in summer seasons"
+  },
+  "text036": {
+    "ro": "maximum 1 curs BEST (BEST Courses) pe fiecare sezon",
+    "en": "up to 1 BEST Course per season"
+  },
+  "text037": {
+    "ro": "maximum 3 evenimente despre educație (Symposium on Education) în timpul perioadei de studii",
+    "en": "up to 3 education events (Symposium on Education) during their studies"
+  },
+  "text038": {
+    "ro": "Cum pot aplica?",
+    "en": "How do I apply?"
+  },
+  "text039": {
+    "ro": "Pentru a aplica la un eveniment BEST, există câteva reguli pe care trebuie să le îndeplinești și o procedură care trebuie respectată:",
+    "en": "To apply for a BEST event, there are some rules you need to follow and a procedure you need to complete:"
+  },
+  "text040": {
+    "ro": "O aplicație este formată din:",
+    "en": "An application consists of:"
+  },
+  "text041": {
+    "ro": "crearea contului pe",
+    "en": "creating an account on"
+  },
+  "text042": {
+    "ro": "www.best.eu.org",
+    "en": "www.best.eu.org"
+  },
+  "text043": {
+    "ro": "(site-ul general BEST)",
+    "en": "(the main BEST website)"
+  },
+  "text044": {
+    "ro": "o scrisoare de motivație",
+    "en": "a motivation letter"
+  },
+  "text045": {
+    "ro": "răspunsul la întrebările evenimentului BEST la care aplici (pot fi de la 1 la 3 întrebări)",
+    "en": "answers to the questions for the BEST event you are applying for (there may be 1 to 3 questions)"
+  },
+  "text046": {
+    "ro": "Ce trebuie să faci?",
+    "en": "What do you need to do?"
+  },
+  "text047": {
+    "ro": "Mergi la",
+    "en": "Go to the"
+  },
+  "text048": {
+    "ro": "lista de evenimente",
+    "en": "list of events"
+  },
+  "text049": {
+    "ro": ", alege evenimentul la care dorești să aplici și apasă butonul „Apply”.",
+    "en": ", choose the event you would like to apply for and click the “Apply” button."
+  },
+  "text050": {
+    "ro": "Introdu adresa ta de e-mail și parola, dacă nu ești deja conectat (dacă nu ai încă un cont, înregistrează-te",
+    "en": "Enter your email address and password if you are not already logged in (if you do not have an account yet, register"
+  },
+  "text051": {
+    "ro": "aici",
+    "en": "here"
+  },
+  "text052": {
+    "ro": "După crearea contului,",
+    "en": "After creating your account,"
+  },
+  "text053": {
+    "ro": "contactează-ne",
+    "en": "contact us"
+  },
+  "text054": {
+    "ro": "să ne soliciți să-ți validăm contul.",
+    "en": "to ask us to validate your account."
+  },
+  "text055": {
+    "ro": "Aplică la cursul/cursurile pe care le-ai ales.",
+    "en": "Apply for your chosen course or courses."
+  },
+  "text056": {
+    "ro": "Plătește depozitul de 40 de euro la BEST Brașov dacă ai fost acceptat la unul dintre evenimente. Vei primi această sumă înapoi în urma participării fără probleme la curs și a completării formularului de feedback după întoarcerea în țară.",
+    "en": "Pay the €40 deposit to BEST Brașov if you have been accepted for one of the events. You will receive this amount back after taking part in the course without issues and completing the feedback form after returning home."
+  },
+  "text057": {
+    "ro": "Caută și găsește o metodă de a ajunge la eveniment (avion, tren, autocar).",
+    "en": "Find a way to travel to the event (plane, train or coach)."
+  },
+  "text058": {
+    "ro": "Participă la eveniment respectând programul realizat de Grupul Local BEST care organizează cursul.",
+    "en": "Attend the event and follow the programme prepared by the Local BEST Group organising the course."
+  },
+  "text059": {
+    "ro": "Plătește taxa de participare (taxa pentru participanții din România este de 60% din taxa cursului ales).",
+    "en": "Pay the participation fee (participants from Romania pay 60% of the fee for their chosen course)."
+  },
+  "text060": {
+    "ro": "Bucură-te de cele trei mese pe zi, oferite de Grupul Local BEST organizator.",
+    "en": "Enjoy the three meals a day provided by the organising Local BEST Group."
+  },
+  "text061": {
+    "ro": "Evaluează la final cursul pe",
+    "en": "Evaluate the course at the end on"
+  },
+  "text062": {
+    "ro": "Ai întrebări?",
+    "en": "Have questions?"
+  },
+  "text063": {
+    "ro": "Ia legătura cu",
+    "en": "Get in touch with the"
+  },
+  "text064": {
+    "ro": "responsabilul de cursuri de sezon",
+    "en": "seasonal courses coordinator"
+  },
+  "text065": {
+    "ro": "prin e-mail.",
+    "en": "by email."
+  },
+  "text066": {
+    "ro": "Scrisoarea de motivație",
+    "en": "The motivation letter"
+  },
+  "text067": {
+    "ro": "Pentru orice curs la care vă decideți să aplicați, trebuie să știți că este necesară o scrisoare de motivație, pe baza căreia grupurile locale BEST din toată Europa își vor selecta participanții. Criteriile de selecție variază de la un grup la altul, dar scrisoarea de motivație are, cu siguranță, cea mai mare pondere în alegerea participanților.",
+    "en": "For any course you decide to apply for, you need a motivation letter, which Local BEST Groups across Europe use to select participants. Selection criteria vary between local groups, but the motivation letter certainly carries the most weight when choosing participants."
+  },
+  "text068": {
+    "ro": "Nu există o rețetă perfectă, din cauza multitudinii de criterii, dar, cu siguranță, organizatorii vor vrea să știe:",
+    "en": "There is no perfect formula, given the many different criteria, but the organisers will definitely want to know:"
+  },
+  "text069": {
+    "ro": "Cine ești? Care sunt studiile și pasiunile tale, ce cunoștințe ai în domeniul cursului și cum îți place să te distrezi? Prezentarea ta nu trebuie să fie lungă, dar trebuie să cuprindă informații relevante despre preocupările tale și despre modul în care ai putea contribui la formarea unui grup de participanți diversificat și receptiv.",
+    "en": "Who are you? What do you study, what are your interests, what do you know about the course topic and what do you enjoy doing for fun? Your introduction does not have to be long, but it should include relevant information about your interests and how you could contribute to a diverse and open-minded group of participants."
+  },
+  "text070": {
+    "ro": "De ce ai ales cursul acesta? Citește cu atenție descrierea cursului și ai grijă să nu le încurci dacă aplici la mai multe cursuri. Grupurile BEST vor fi curioase să afle motivația ta, iar aceasta cântărește adesea cel mai mult în decizia lor. Scrie motive specifice! Așa vor ști că scrisoarea ta nu este una standard, cu care aplici la toate cursurile, și că interesul tău este real!",
+    "en": "Why did you choose this course? Read the description carefully and make sure you do not mix up courses if you are applying for more than one. BEST groups will be curious about your motivation, and this often matters most in their decision. Give specific reasons! This shows them that your letter is not a generic one you use for every course and that your interest is real!"
+  },
+  "text071": {
+    "ro": "De ce ai ales acest oraș sau această țară? Vrei sau nu, cei care vor face selecția se vor simți întotdeauna puțin gâdilați în orgoliu dacă le dai și un motiv legat de țara lor pentru care vrei să mergi acolo! Nu insista însă prea mult, deoarece există riscul să dai impresia că mergi acolo ca turist și că pui cursurile pe locul al doilea.",
+    "en": "Why did you choose this city or country? Whether you like it or not, the people selecting participants will always be a little flattered if you also give them a reason for wanting to visit their country! Do not focus on this too much, though, as you might give the impression that you are going there as a tourist and putting the course second."
+  },
+  "text072": {
+    "ro": "Dacă adaugi acestor informații și puțină originalitate în formulare, cu siguranță vei avea o șansă în plus. Oricine apreciază simțul umorului și creativitatea, așa că nu ezita să le folosești când ai ocazia.",
+    "en": "If you add a little originality to the way you present this information, you will certainly improve your chances. Everyone appreciates humour and creativity, so do not hesitate to use them when you have the opportunity."
+  },
+  "text073": {
+    "ro": "Acum nu mai rămâne decât să aplici! Fă-ți curaj, apucă-te de scris și poți petrece o săptămână cum nici nu ai îndrăznit să speri.",
+    "en": "All that is left now is to apply! Be brave, start writing and you could spend a week in a way you had never dared to imagine."
+  },
+  "text074": {
+    "ro": "Validare cont",
+    "en": "Account validation"
+  },
+  "text075": {
+    "ro": "Pentru ca aplicația ta la curs să devină vizibilă, trebuie să ai contul activat.",
+    "en": "Your account must be activated before your course application becomes visible."
+  },
+  "text076": {
+    "ro": "Cum îmi activez contul?",
+    "en": "How do I activate my account?"
+  },
+  "text077": {
+    "ro": "Trimite un e-mail",
+    "en": "Send an email to the"
+  },
+  "text078": {
+    "ro": "responsabilului de cursuri de sezon",
+    "en": "seasonal courses coordinator"
+  },
+  "text079": {
+    "ro": ", specificând următoarele:",
+    "en": ", including the following:"
+  },
+  "text080": {
+    "ro": "numele complet",
+    "en": "your full name"
+  },
+  "text081": {
+    "ro": "adresa de e-mail",
+    "en": "your email address"
+  },
+  "text082": {
+    "ro": "numărul de telefon",
+    "en": "your phone number"
+  },
+  "text083": {
+    "ro": "facultatea",
+    "en": "your faculty"
+  },
+  "text084": {
+    "ro": "anul universitar",
+    "en": "your year of study"
+  },
+  "text085": {
+    "ro": "când ești disponibil pentru a fi contactat telefonic",
+    "en": "when you are available to be contacted by phone"
+  },
+  "text086": {
+    "ro": "Te vom contacta telefonic pentru confirmarea cererii și pentru o scurtă conversație în limba engleză.",
+    "en": "We will contact you by phone to confirm your request and have a short conversation in English."
+  },
+  "text087": {
+    "ro": "Dacă totul este în regulă, vei avea contul activat în cel mai scurt timp.",
+    "en": "If everything is in order, your account will be activated as soon as possible."
+  },
+  "text088": {
+    "ro": "Costuri",
+    "en": "Costs"
+  },
+  "text089": {
+    "ro": "Taxa cursului",
+    "en": "Course fee"
+  },
+  "text090": {
+    "ro": "Depozit returnabil",
+    "en": "Refundable deposit"
+  },
+  "text091": {
+    "ro": "Drumul până acolo",
+    "en": "Getting there"
+  },
+  "text092": {
+    "ro": "Ce nu este inclus: călătoria la eveniment și întoarcerea de la acesta.",
+    "en": "Not included: travel to and from the event."
+  },
+  "text093": {
+    "ro": "Destinații europene",
+    "en": "European destinations"
+  },
+  "text094": {
+    "ro": "APASĂ PE IMAGINI PENTRU DETALII",
+    "en": "SELECT AN IMAGE FOR DETAILS"
+  },
+  "text095": {
+    "ro": "Vezi detalii:",
+    "en": "View details:"
+  },
+  "text096": {
+    "ro": "Momentan nu sunt cursuri disponibile pentru",
+    "en": "There are currently no courses available for"
+  },
+  "text097": {
+    "ro": "Vezi evenimentele pe best.eu.org",
+    "en": "See events on best.eu.org"
+  },
+  "text098": {
+    "ro": "Beneficii și responsabilități",
+    "en": "Benefits and responsibilities"
+  },
+  "text099": {
+    "ro": "Beneficii",
+    "en": "Benefits"
+  },
+  "text100": {
+    "ro": "Cursuri, cazare, mese și activități: ce îți oferă organizatorii și ce plătești separat.",
+    "en": "Courses, accommodation, meals and activities: what the organisers provide and what you pay for separately."
+  },
+  "text101": {
+    "ro": "8 beneficii",
+    "en": "8 benefits"
+  },
+  "text102": {
+    "ro": "4 costuri neincluse",
+    "en": "4 costs not included"
+  },
+  "text103": {
+    "ro": "Organizatorii vă vor oferi fără niciun cost suplimentar:",
+    "en": "The organisers will provide the following at no additional cost:"
+  },
+  "text104": {
+    "ro": "Un „kit de supraviețuire” care conține informații despre eveniment. Acest kit va fi oferit cu cel puțin trei săptămâni înaintea începerii evenimentului.",
+    "en": "A “survival kit” containing information about the event. This kit will be provided at least three weeks before the event begins."
+  },
+  "text105": {
+    "ro": "Aproximativ 20 de ore de cursuri academice pe săptămână (cursuri, vizite la companii, studii de caz, lucru de laborator și sesiuni de training)",
+    "en": "Approximately 20 hours of academic activities per week (lectures, company visits, case studies, laboratory work and training sessions)"
+  },
+  "text106": {
+    "ro": "Materiale de curs scrise în limba engleză",
+    "en": "Course materials written in English"
+  },
+  "text107": {
+    "ro": "Un certificat de participare",
+    "en": "A certificate of participation"
+  },
+  "text108": {
+    "ro": "Transport gratuit la sesiunile de curs și la toate activitățile organizate",
+    "en": "Free transport to course sessions and all organised activities"
+  },
+  "text109": {
+    "ro": "Un program cultural/social",
+    "en": "A cultural/social programme"
+  },
+  "text110": {
+    "ro": "Trei mese pe zi, dintre care cel puțin una caldă, pe parcursul întregului eveniment, inclusiv în weekend",
+    "en": "Three meals a day, including at least one hot meal, throughout the event, including weekends"
+  },
+  "text111": {
+    "ro": "Facilități de dormit corespunzătoare, precum și acces la un duș",
+    "en": "Suitable sleeping facilities and access to a shower"
+  },
+  "text112": {
+    "ro": "Ce nu este inclus:",
+    "en": "Not included:"
+  },
+  "text113": {
+    "ro": "Călătoria la eveniment și întoarcerea de la acesta",
+    "en": "Travel to and from the event"
+  },
+  "text114": {
+    "ro": "Băuturi și alimente suplimentare",
+    "en": "Extra food and drinks"
+  },
+  "text115": {
+    "ro": "Unele dintre activitățile de seară (de exemplu, biletul la club)",
+    "en": "Some evening activities (for example, club admission)"
+  },
+  "text116": {
+    "ro": "Asigurarea de călătorie și de sănătate",
+    "en": "Travel and health insurance"
+  },
+  "text117": {
+    "ro": "Responsabilități",
+    "en": "Responsibilities"
+  },
+  "text118": {
+    "ro": "De la confirmarea participării până la evaluarea cursului: ce ai de făcut înainte, în timpul și după eveniment.",
+    "en": "From confirming your participation to evaluating the course: what you need to do before, during and after the event."
+  },
+  "text119": {
+    "ro": "12 responsabilități",
+    "en": "12 responsibilities"
+  },
+  "text120": {
+    "ro": "Returnarea depozitului",
+    "en": "Deposit refund"
+  },
+  "text121": {
+    "ro": "Există anumite cerințe care trebuie respectate pentru a putea participa la un eveniment BEST:",
+    "en": "There are certain requirements you must meet to take part in a BEST event:"
+  },
+  "text122": {
+    "ro": "Dacă ești sigur că vei participa la un curs la care ai fost acceptat, nu uita să achiți acest depozit către Grupul Local BEST Brașov. Acesta este necesar pentru a confirma participarea la eveniment.",
+    "en": "If you are sure you will attend a course you have been accepted for, remember to pay this deposit to the Local BEST Group in Brașov. It is required to confirm your participation in the event."
+  },
+  "text123": {
+    "ro": "În timpul evenimentului, participanții trebuie să se comporte într-o manieră civilizată, respectând oamenii indiferent de naționalitate sau de convingerile lor și în conformitate cu legile țării în care are loc evenimentul.",
+    "en": "During the event, participants must behave respectfully towards people regardless of their nationality or beliefs and comply with the laws of the country where the event takes place."
+  },
+  "text124": {
+    "ro": "Participanții trebuie să informeze grupul local BEST care organizează evenimentul despre data sosirii la locația specificată pe site-ul evenimentului, cu cel puțin o săptămână înainte de începerea acestuia.",
+    "en": "Participants must inform the Local BEST Group organising the event of their arrival date at the location specified on the event website at least one week before the event begins."
+  },
+  "text125": {
+    "ro": "Participanții trebuie să sosească la locația specificată pe site-ul evenimentului cel târziu în ziua sosirii, la ora specificată. Aceștia pot pleca cel mai devreme în ziua plecării.",
+    "en": "Participants must arrive at the location specified on the event website no later than the stated time on the arrival day. They may leave no earlier than the departure day."
+  },
+  "text126": {
+    "ro": "La evenimentele cu o componentă academică, participanții trebuie să fie prezenți la întreaga parte academică a evenimentului. Participanții trebuie să fie la timp la începutul sesiunilor academice.",
+    "en": "At events with an academic component, participants must attend the entire academic programme. Participants must arrive on time for the start of academic sessions."
+  },
+  "text127": {
+    "ro": "Participanții trebuie să participe activ la toate activitățile și nu pot părăsi grupul, cu excepția cazurilor convenite cu organizatorii.",
+    "en": "Participants must actively take part in all activities and may not leave the group except as agreed with the organisers."
+  },
+  "text128": {
+    "ro": "În timpul evenimentului, participanții trebuie să plătească taxa de participare specificată, care variază în funcție de țara din care provin.",
+    "en": "During the event, participants must pay the specified participation fee, which varies according to their country of origin."
+  },
+  "text129": {
+    "ro": "Participanții nu pot consuma băuturi alcoolice și nu pot fi sub influența acestora în timpul cursurilor academice sau al altor activități stabilite în avans de organizatori.",
+    "en": "Participants may not consume alcohol or be under its influence during academic sessions or other activities designated in advance by the organisers."
+  },
+  "text130": {
+    "ro": "În lipsa unor motive medicale, participanții nu pot consuma substanțe cu efect stupefiant sau medicamente cu efecte similare.",
+    "en": "Unless medically necessary, participants may not use narcotic substances or medication with similar effects."
+  },
+  "text131": {
+    "ro": "Participanții nu vor dormi în timpul cursurilor academice sau în timpul altor activități stabilite de organizatori.",
+    "en": "Participants must not sleep during academic sessions or other activities arranged by the organisers."
+  },
+  "text132": {
+    "ro": "Participanții vor trebui să plătească pentru orice obiecte deteriorate, dacă se dovedește că acestea au fost deteriorate de ei.",
+    "en": "Participants must pay for any damaged items if it is established that they caused the damage."
+  },
+  "text133": {
+    "ro": "Participanții au obligația de a completa formularul de evaluare a evenimentului, pe site-ul BEST, după participare. Acest lucru trebuie făcut înainte de termenul limită specificat pe site-ul BEST.",
+    "en": "Participants must complete the event evaluation form on the BEST website after attending. This must be done before the deadline specified on the BEST website."
+  },
+  "text134": {
+    "ro": "Important: Depozitul va fi returnat după ce ai participat la eveniment, ți-ai respectat responsabilitățile și ai răspuns la mai mult de 70% din întrebările din formularul de evaluare de pe site-ul BEST.",
+    "en": "Important: Your deposit will be refunded after you have attended the event, fulfilled your responsibilities and answered more than 70% of the questions in the event evaluation form on the BEST website."
+  },
+  "text135": {
+    "ro": "FAQ",
+    "en": "FAQ"
+  },
+  "text136": {
+    "ro": "Întrebări despre cursuri?",
+    "en": "Questions about the courses?"
+  },
+  "text137": {
+    "ro": "Ioana Bianca Renea",
+    "en": "Ioana Bianca Renea"
+  },
+  "text138": {
+    "ro": "Ai întrebări despre cursuri sau validarea contului? Scrie-i Ioanei.",
+    "en": "Questions about the courses or account validation? Email Ioana."
+  },
+  "text139": {
+    "ro": "ioana-bianca.renea@best-eu.org",
+    "en": "ioana-bianca.renea@best-eu.org"
+  },
+  "text140": {
+    "ro": "BEST Courses",
+    "en": "BEST Courses"
+  },
+  "text141": {
+    "ro": "BEST Brașov pe Instagram",
+    "en": "BEST Brașov on Instagram"
+  },
+  "text142": {
+    "ro": "BEST Brașov pe Facebook",
+    "en": "BEST Brașov on Facebook"
+  },
+  "text143": {
+    "ro": "BEST Brașov, Căminul 15, Strada Universității 1, Brașov 500068",
+    "en": "BEST Brașov, Căminul 15, Strada Universității 1, Brașov 500068"
+  },
+  "text144": {
+    "ro": "Deschide în Google Maps",
+    "en": "Open in Google Maps"
+  },
+  "text145": {
+    "ro": "Hartă: BEST Brașov, Strada Universității 1",
+    "en": "Map: BEST Brașov, Strada Universității 1"
+  },
+  "text146": {
+    "ro": "BEST © 2026. All rights reserved.",
+    "en": "BEST © 2026. All rights reserved."
+  },
+  "text147": {
+    "ro": "Made with <3 by BEST Brașov",
+    "en": "Made with <3 by BEST Brașov"
+  },
+  "text148": {
+    "ro": "Care este taxa maximă pentru un eveniment de educație (Event on Education)?",
+    "en": "What is the maximum fee for an education event (Event on Education)?"
+  },
+  "text149": {
+    "ro": "În ceea ce îi privește pe participanții români, aceștia plătesc o taxă de participare care reprezintă doar 60% din costul cursului pe care îl aleg. Această politică tarifară are scopul de a face educația mai accesibilă și de a încuraja membrii comunității să se implice activ la aceste cursuri.",
+    "en": "Romanian participants pay a participation fee equal to just 60% of the cost of their chosen course. This pricing policy aims to make education more accessible and encourage members of the community to take an active part in these courses."
+  },
+  "text150": {
+    "ro": "Care este motivul pentru care evenimentele BEST au prețuri atât de accesibile?",
+    "en": "Why are BEST events so affordable?"
+  },
+  "text151": {
+    "ro": "Grupul local BEST care se ocupă de organizarea cursurilor face eforturi constante pentru a stabili colaborări cu organizații, companii și universitatea noastră. Scopul acestor colaborări este strângerea de fonduri suplimentare pentru a sprijini organizarea cursurilor BEST. Resursele obținute prin aceste colaborări sunt importante pentru a acoperi diferite costuri necesare, precum materialele de studiu, facilitățile și susținerea financiară a participanților. Prin intermediul acestor colaborări, costurile pot fi menținute cât mai accesibile și se poate oferi o experiență de învățare de calitate în cadrul programelor BEST.",
+    "en": "The Local BEST Group organising the courses continually works to build partnerships with organisations, companies and our university. These partnerships aim to raise additional funds to support course organisation. The funds raised through these partnerships are important for covering necessary costs such as study materials, facilities and financial support for participants. These partnerships help keep costs as affordable as possible while providing a high-quality learning experience within BEST programmes."
+  },
+  "text152": {
+    "ro": "Care este procedura pentru selectarea participanților?",
+    "en": "How are participants selected?"
+  },
+  "text153": {
+    "ro": "Grupul local BEST organizator primește toate scrisorile de motivație ale studenților care au aplicat la curs și selectează participanții în funcție de mai multe criterii, cum ar fi: locația geografică, având în vedere că, de obicei, se alege un singur student dintr-un oraș sau dintr-o țară; creativitatea și originalitatea scrisorii de motivație prezentate de aplicanți; experiența anterioară a candidaților în domeniul abordat în cadrul cursului.",
+    "en": "The organising Local BEST Group receives all motivation letters from students who applied for the course and selects participants using several criteria, including geographical location, since usually only one student from a given city or country is selected; the creativity and originality of applicants' motivation letters; and candidates' previous experience in the course subject."
+  },
+  "text154": {
+    "ro": "Ce ar trebui să fac în cazul în care nu am fost ales să particip la un eveniment?",
+    "en": "What should I do if I am not selected for an event?"
+  },
+  "text155": {
+    "ro": "Dacă nu ai fost acceptat la evenimentul respectiv, nu trebuie să te descurajezi. În schimb, poți să-ți analizezi aplicația și să lucrezi la îmbunătățirea ei pentru viitoarele oportunități. Aprofundează-ți cunoștințele sau dezvoltă-ți abilitățile și nu ezita să revii cu o aplicație mai bine pregătită pentru a obține acceptarea în viitor.",
+    "en": "If you are not accepted for an event, do not be discouraged. Instead, review your application and work on improving it for future opportunities. Deepen your knowledge or develop your skills, and do not hesitate to apply again with a better-prepared application to improve your chances of being accepted in the future."
+  },
+  "text156": {
+    "ro": "Se pot obține credite ECTS în urma participării la un eveniment BEST?",
+    "en": "Can I earn ECTS credits by attending a BEST event?"
+  },
+  "text157": {
+    "ro": "După încheierea procesului de evaluare finală în cadrul cursului, vei primi un certificat BEST care servește drept dovadă a participării și va oferi o descriere detaliată a conținutului cursului. Certificatul BEST va fi autentificat cu ștampila universității și semnătura profesorului coordonator, iar pe lângă acestea, va include informații cu privire la numărul de credite ECTS alocat cursului, oferind astfel o recunoaștere oficială a eforturilor și a performanțelor tale în cadrul acestuia.",
+    "en": "After completing the final course assessment, you will receive a BEST certificate as proof of participation, with a detailed description of the course content. The BEST certificate will be authenticated with the university's stamp and the coordinating professor's signature. It will also include information about the number of ECTS credits allocated to the course, providing official recognition of your efforts and achievements during the programme."
+  },
+  "text158": {
+    "ro": "Trebuie să completez formularul de evaluare online la un moment specific?",
+    "en": "Is there a deadline for completing the online evaluation form?"
+  },
+  "text159": {
+    "ro": "Participanții la fiecare curs trebuie să completeze un formular de evaluare după încheierea evenimentului și înainte de data-limită specificată pentru fiecare sezon. Detaliile sunt disponibile pe <a href=\"#process\">pagina de aplicare</a>, la secțiunea Beneficii. În cazul în care un participant omite să completeze evaluarea evenimentului, acesta va primi doar jumătate din depozitul inițial.",
+    "en": "Participants in each course must complete an evaluation form after the event ends and before the deadline specified for each season. Details are available on the <a href=\"#process\">application page</a>, in the Benefits section. If a participant fails to complete the event evaluation, they will receive only half of their initial deposit back."
+  },
+  "text160": {
+    "ro": "Unde pot accesa formularul de evaluare?",
+    "en": "Where can I find the evaluation form?"
+  },
+  "text161": {
+    "ro": "Pentru a completa formularul de evaluare, este necesar să intri în contul tău și să accesezi secțiunea <a href=\"https://best.eu.org/account/applications.jsp\" target=\"_blank\" rel=\"noopener noreferrer\">„My Applications”</a>, unde îl vei avea disponibil. Asigură-te că ești autentificat pentru a putea accesa acest formular și pentru a-ți exprima evaluarea cu privire la evenimentul respectiv.",
+    "en": "To complete the evaluation form, log in to your account and go to <a href=\"https://best.eu.org/account/applications.jsp\" target=\"_blank\" rel=\"noopener noreferrer\">“My Applications”</a>, where the form will be available. Make sure you are logged in so you can access the form and submit your evaluation of the event."
+  },
+  "home": {
+    "ro": "Acasă",
+    "en": "Home"
+  },
+  "guide": {
+    "ro": "Ghid",
+    "en": "Guide"
+  },
+  "whoLetter": {
+    "ro": "Cum arată scrisoarea de motivație?",
+    "en": "How do I write a motivation letter?"
+  },
+  "validate": {
+    "ro": "Cum se validează contul?",
+    "en": "How is my account validated?"
+  },
+  "collapse": {
+    "ro": "Restrânge",
+    "en": "Show less"
+  },
+  "showAll": {
+    "ro": "Vezi toate",
+    "en": "Show all"
+  },
+  "photo": {
+    "ro": "Amintire dintr-un eveniment BEST ",
+    "en": "Memory from a BEST event "
+  },
+  "openPhoto": {
+    "ro": "Deschide fotografia ",
+    "en": "Open photo "
+  },
+  "emptySeason": {
+    "ro": "Momentan niciun grup local BEST nu organizează un curs în acest sezon. Revino în curând pentru noi destinații!",
+    "en": "No Local BEST Group is currently organising a course this season. Check back soon for new destinations!"
+  },
+  "emptyFallback": {
+    "ro": "În acest sezon nu sunt organizate cursuri BEST de către grupurile locale. Urmărește noutățile sau verifică direct pagina oficială BEST pentru celelalte tipuri de evenimente!",
+    "en": "Local BEST Groups are not organising BEST courses this season. Follow the updates or check the official BEST website for other types of events!"
+  },
+  "pagination": {
+    "ro": "Mergi la destinația {{index}}",
+    "en": "Go to destination {{index}}"
+  },
+  "contact": {
+    "ro": "Contact",
+    "en": "Contact"
+  },
+  "switchEn": {
+    "ro": "Schimbă limba în engleză",
+    "en": "Switch to English"
+  },
+  "switchRo": {
+    "ro": "Schimbă limba în română",
+    "en": "Switch to Romanian"
+  },
+  "pageTitle": {
+    "ro": "Study & Travel — Cursuri BEST | BEST Brașov",
+    "en": "Study & Travel — BEST Courses | BEST Brașov"
+  },
+  "description": {
+    "ro": "Descoperă cursurile BEST din Europa cu BEST Brașov: destinații, eligibilitate, ghid de aplicare și contact pentru studenții Universității Transilvania.",
+    "en": "Discover BEST courses in Europe with BEST Brașov: destinations, eligibility, application guidance and a contact for Transilvania University students."
+  },
+  "ogTitle": {
+    "ro": "Study & Travel — BEST Brașov",
+    "en": "Study & Travel — BEST Brașov"
+  },
+  "ogDescription": {
+    "ro": "Cursuri academice și experiențe europene pentru studenți. Descoperă destinațiile BEST și pașii de aplicare.",
+    "en": "Academic courses and European experiences for students. Explore BEST destinations and the application process."
+  },
+  "twitterDescription": {
+    "ro": "Descoperă cursurile BEST din Europa, condițiile de participare și ghidul de aplicare.",
+    "en": "Discover BEST courses in Europe, participation requirements and the application guide."
+  }
+}
