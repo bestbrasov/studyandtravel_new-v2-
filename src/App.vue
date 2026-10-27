@@ -72,8 +72,8 @@
       </div>
       <div ref="treeElement" class="hero-art" aria-hidden="true">
         <picture v-if="canopyVisible">
-          <img class="cherry-canopy" src="/images/cherry-canopy-1600.webp"
-            :srcset="`/images/cherry-canopy-1000.webp ${cherryCanopy.smallWidth}w, /images/cherry-canopy-1600.webp ${cherryCanopy.width}w`"
+          <img class="cherry-canopy" src="/images/cherry-canopy-v3-1600.webp"
+            :srcset="`/images/cherry-canopy-v3-1000.webp ${cherryCanopy.smallWidth}w, /images/cherry-canopy-v3-1600.webp ${cherryCanopy.width}w`"
             sizes="100vw" :width="cherryCanopy.width" :height="cherryCanopy.height"
             alt="" fetchpriority="high" decoding="async" draggable="false"
             @load="onCanopyImageLoad" @error="onCanopyImageError">

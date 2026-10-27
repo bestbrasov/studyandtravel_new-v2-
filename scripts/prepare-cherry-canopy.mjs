@@ -9,8 +9,8 @@ if (process.argv[2]) await fs.copyFile(process.argv[2], original, fs.constants.C
 const metadata = await sharp(original).metadata();
 const stats = await sharp(original).stats();
 if (!metadata.hasAlpha || stats.channels[3].min !== 0) throw new Error('Ilustrația trebuie să aibă fundal transparent.');
-const full = await sharp(original).resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 88, alphaQuality: 100 }).toFile(path.join(root, 'public/images/cherry-canopy-1600.webp'));
-const small = await sharp(original).resize({ width: 1000, withoutEnlargement: true }).webp({ quality: 85, alphaQuality: 100 }).toFile(path.join(root, 'public/images/cherry-canopy-1000.webp'));
+const full = await sharp(original).resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 88, alphaQuality: 100 }).toFile(path.join(root, 'public/images/cherry-canopy-v3-1600.webp'));
+const small = await sharp(original).resize({ width: 1000, withoutEnlargement: true }).webp({ quality: 85, alphaQuality: 100 }).toFile(path.join(root, 'public/images/cherry-canopy-v3-1000.webp'));
 
 // Punctele de emisie urmează marginea inferioară a florilor roz, nu trunchiul.
 const { data, info } = await sharp(original).resize({ width: 320 }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
