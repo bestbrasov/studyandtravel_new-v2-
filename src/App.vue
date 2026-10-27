@@ -391,7 +391,12 @@
         </div>
         <div class="footer-bottom">
           <p>{{ t('text146') }}</p>
-          <p>{{ t('text147') }}</p>
+          <div class="footer-credit">
+            <p>{{ t('text147') }}</p>
+            <a class="footer-best-link" href="https://bestbrasov.ro/" target="_blank" rel="noopener noreferrer" :aria-label="t('bestBrasovWebsite')">
+              <img src="/images/best-brasov-logo.webp" alt="BEST Brașov" width="240" height="122" loading="lazy" decoding="async">
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -1991,4 +1996,13 @@ nav > .language-toggle { display: inline-flex; justify-content: center; align-it
   .gallery-memory:nth-child(even) { --memory-angle: 2deg; }
 }
 @media (prefers-reduced-motion: reduce) { .gallery-memory .gallery-trigger { transform: none; } }
+.footer-credit { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.footer-bottom { align-items: center; }
+.footer-best-link { display: inline-flex; align-items: center; justify-content: center; padding: 9px 14px; border-radius: 12px; background: transparent; transition: background .2s ease; }
+.footer-best-link img { display: block; width: 96px; height: auto; filter: brightness(0); }
+.footer-best-link:hover { background: #ffffff80; }
+@media (max-width: 767px) {
+  .footer-bottom { align-items: flex-start; gap: 14px; }
+  .footer-credit { gap: 12px; }
+}
 </style>
