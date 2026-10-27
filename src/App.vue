@@ -72,8 +72,8 @@
       </div>
       <div ref="treeElement" class="hero-art" aria-hidden="true">
         <picture v-if="canopyVisible">
-          <img class="cherry-canopy" src="/images/cherry-canopy-v3-1600.webp"
-            :srcset="`/images/cherry-canopy-v3-1000.webp ${cherryCanopy.smallWidth}w, /images/cherry-canopy-v3-1600.webp ${cherryCanopy.width}w`"
+          <img class="cherry-canopy" src="/images/cherry-branches-brushed-1600.webp"
+            :srcset="`/images/cherry-branches-brushed-1000.webp ${cherryCanopy.smallWidth}w, /images/cherry-branches-brushed-1600.webp ${cherryCanopy.width}w`"
             sizes="100vw" :width="cherryCanopy.width" :height="cherryCanopy.height"
             alt="" fetchpriority="high" decoding="async" draggable="false"
             @load="onCanopyImageLoad" @error="onCanopyImageError">
@@ -346,10 +346,12 @@
     <section class="section-padding" data-aos="fade-up">
       <h2 class="text-center" style="margin-bottom: 24px;">{{ t('text003') }}</h2>
       <div class="gallery-wrapper">
-        <button v-for="(img, index) in wallPhotos" :key="img.src" type="button" class="gallery-trigger" :aria-label="t('openPhoto') + (index + 1)" @click="openGallery(index)"><img
+        <div v-for="(img, index) in wallPhotos" :key="img.src" class="gallery-memory">
+        <svg class="memory-cord" viewBox="0 0 320 42" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 10Q160 38 320 10" fill="none" stroke="#cda6a0" stroke-width="1.5"/></svg>
+        <button type="button" class="gallery-trigger" :aria-label="t('openPhoto') + (index + 1)" @click="openGallery(index)"><img
             :src="`/images/wallofmemories/${img.src}`"
             :srcset="`/images/wallofmemories/${img.small} ${img.smallWidth}w, /images/wallofmemories/${img.src} ${img.width}w`"
-            sizes="(max-width: 768px) 90vw, 28vw"
+            sizes="(max-width: 540px) 78vw, (max-width: 1000px) 40vw, 28vw"
             loading="lazy"
             decoding="async"
             :width="img.width"
@@ -357,6 +359,7 @@
             class="gallery-img"
             :alt="t('photo') + (index + 1)"
         ></button>
+        </div>
       </div>
     </section>
 
@@ -1506,7 +1509,7 @@ h3 { line-height: 1.3; }
 .hero-actions { margin-top: 28px; }
 .hero-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .hero-art picture, .cherry-canopy { display: block; width: 100%; height: 100%; }
-.cherry-canopy { object-fit: cover; object-position: center; opacity: .68; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%); }
+.cherry-canopy { object-fit: cover; object-position: center; opacity: .48; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, rgba(0,0,0,.75) 68%, rgba(0,0,0,.35) 78%, rgba(0,0,0,.08) 88%, transparent 96%); mask-image: linear-gradient(to bottom, #000 0%, #000 58%, rgba(0,0,0,.75) 68%, rgba(0,0,0,.35) 78%, rgba(0,0,0,.08) 88%, transparent 96%); }
 .stats-bar { transform: none; width: 88%; max-width: 1180px; margin: 0 auto 12px; padding: 24px; border-radius: var(--card-radius); background: #ffffffd9; gap: 32px; }
 .stat-item h3 { font-size: 1.65rem; }
 .stat-item p { font-size: .85rem; text-transform: none; letter-spacing: 0; opacity: 1; color: #596175; }
@@ -1950,4 +1953,27 @@ nav > .language-toggle { display: inline-flex; justify-content: center; align-it
 }
 @media (prefers-reduced-motion: reduce) { .resp-polaroid { transform: none; } }
 .landing-container.intro-active *, .landing-container.intro-active *::before, .landing-container.intro-active *::after { animation-play-state: paused !important; }
+/* Photos pinned to a continuous-looking garland, with the lightbox unchanged. */
+.gallery-wrapper { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-count: auto; gap: 36px 32px; max-width: 1120px; margin: 0 auto; padding: 8px 14px 16px; }
+.gallery-memory { position: relative; min-width: 0; padding-top: 36px; }
+.memory-cord { position: absolute; top: 0; left: -18px; width: calc(100% + 36px); height: 42px; pointer-events: none; }
+.gallery-memory:nth-child(3n+1) { --memory-angle: -3deg; }
+.gallery-memory:nth-child(3n+2) { --memory-angle: 2deg; }
+.gallery-memory:nth-child(3n) { --memory-angle: -1deg; }
+.gallery-memory .gallery-trigger { position: relative; margin: 0; padding: 10px 10px 32px; border: 1px solid #eee0db; border-radius: 3px; background: #fffdf9; box-shadow: 0 8px 18px #71364b1a; transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) rotateZ(var(--memory-angle)); transform-origin: 50% 0; }
+.gallery-memory .gallery-trigger::before { content: ''; position: absolute; z-index: 2; top: -18px; left: calc(50% - 5px); width: 10px; height: 29px; border: 1px solid #c59883; border-radius: 2px; background: linear-gradient(90deg, #dfb79f 0 40%, #b98b75 40% 55%, #ebcbb7 55%); box-shadow: 1px 2px 3px #71364b14; }
+.gallery-memory .gallery-trigger .gallery-img { width: 100%; height: auto; border-radius: 1px; box-shadow: none; transform: none; filter: none; }
+.gallery-memory .gallery-trigger:hover .gallery-img { transform: none; }
+.gallery-memory .gallery-trigger:focus-visible { outline-color: #92365b; outline-offset: 5px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .gallery-memory .gallery-trigger:hover, .gallery-memory .gallery-trigger:focus-visible { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) rotateZ(0deg); box-shadow: 0 14px 28px #71364b26; z-index: 3; }
+}
+@media (min-width: 541px) and (max-width: 1000px) { .gallery-wrapper { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 540px) {
+  .gallery-wrapper { grid-template-columns: minmax(0, 1fr); max-width: 360px; padding-inline: 18px; row-gap: 20px; }
+  .gallery-memory .gallery-trigger { padding: 9px 9px 28px; }
+  .gallery-memory:nth-child(odd) { --memory-angle: -2deg; }
+  .gallery-memory:nth-child(even) { --memory-angle: 2deg; }
+}
+@media (prefers-reduced-motion: reduce) { .gallery-memory .gallery-trigger { transform: none; } }
 </style>

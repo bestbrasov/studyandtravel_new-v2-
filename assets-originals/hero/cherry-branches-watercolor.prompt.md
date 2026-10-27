@@ -1,0 +1,5 @@
+# Watercolor blossom branches — no trunk
+
+Mode: built-in imagegen, using the two user-supplied images as style/composition references.
+
+Prompt: A wide landscape transparent website hero illustration, approximately 16:9. Use reference 1 only for loose pink watercolor washes, petal-shaped dabs, translucent pigment, dusty pink/blush and smudged edges. Use reference 2 only for graceful leaning/drooping dark brown branches from off-frame right and above toward the left. Show only cherry blossom branches, with no trunk, roots, ground, gazebo, water, mountains, landscape, sky or paper rectangle. A slender main branch enters from upper right and arcs across the upper quarter toward the left, with delicate drooping sprays near the upper-left and right edges. Taper twigs naturally and attach blossoms coherently. Keep the central 60% and most of the lower half transparent for text. Airy clusters, painterly flower dabs rather than sharply outlined repeated blooms. Restrained branches, muted pastel palette, true RGBA transparency and feathered watercolor edges. No text or watermark.
