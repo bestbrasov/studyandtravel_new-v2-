@@ -1,8 +1,9 @@
 <template>
   <div class="landing-container">
-    <a class="skip-link" href="#main-content" :inert="isModalOpen">{{ t('text000') }}</a>
+    <PetalIntro :label="t('introEnter')" @active="introActive = $event" />
+    <a class="skip-link" href="#main-content" :inert="isModalOpen || introActive">{{ t('text000') }}</a>
     <Teleport to="body">
-      <div id="sakura-container" ref="sakuraContainer" aria-hidden="true"></div>
+      <div id="sakura-container" ref="sakuraContainer" :class="{ 'intro-paused': introActive }" aria-hidden="true"></div>
     </Teleport>
 
     <transition name="modal-fade">
@@ -48,7 +49,7 @@
       </div>
     </transition>
 
-    <nav ref="headerElement" :inert="isModalOpen" :aria-label="t('text009')" @keydown.esc="closeMenu(true)">
+    <nav ref="headerElement" :inert="isModalOpen || introActive" :aria-label="t('text009')" @keydown.esc="closeMenu(true)">
       <div class="logo mouse-hover">
         <img src="/images/logo_best_courses.png" :alt="t('text010')" class="nav-logo-img" style="height: 55px">
       </div>
@@ -59,7 +60,7 @@
       <button type="button" class="btn-pop language-toggle" :aria-label="locale === 'ro' ? t('switchEn') : t('switchRo')" @click="toggleLanguage(); closeMenu()"><span :class="{ 'language-current': locale === 'ro' }" lang="ro">RO</span><span aria-hidden="true"> / </span><span :class="{ 'language-current': locale === 'en' }" lang="en">EN</span></button>
     </nav>
 
-    <main id="main-content" tabindex="-1" :inert="isModalOpen">
+    <main id="main-content" tabindex="-1" :inert="isModalOpen || introActive">
     <section id="hero" ref="heroElement" class="hero">
       <div class="hero-copy">
       <p class="hero-season">{{ currentSeasonName.toUpperCase() }}</p>
@@ -351,7 +352,7 @@
 
 
     </main>
-    <footer :inert="isModalOpen">
+    <footer :inert="isModalOpen || introActive">
       <div class="footer-content">
         <div class="footer-grid">
         <div class="footer-brand">
@@ -391,7 +392,9 @@ import galleryData from './gallery.json';
 import cherryCanopy from './cherry-canopy.json';
 import Typed from 'typed.js';
 import { useLanguage } from './i18n.js';
+import PetalIntro from './components/PetalIntro.vue';
 
+const introActive = ref(false);
 const { locale, t, translateText, toggleLanguage } = useLanguage();
 watch(locale, async () => {
   document.documentElement.lang = locale.value;
@@ -557,6 +560,7 @@ let typedInstance;
 onUnmounted(() => typedInstance?.destroy());
 const sakuraContainer = ref(null);
 const treeElement = ref(null);
+const heroTreeEnabled = true;
 const canopyVisible = ref(false);
 const canopyReady = ref(false);
 let refreshCanopyPetals = () => {};
@@ -861,7 +865,7 @@ onMounted(async () => {
     const container = sakuraContainer.value;
     if(!container) return;
     container.replaceChildren();
-    if (motionMedia.matches || (treeMedia.matches && !canopyReady.value)) return;
+    if (motionMedia.matches || (canopyVisible.value && !canopyReady.value)) return;
     const count = treeMedia.matches ? 16 : 8;
     const getOrigins = () => {
       const viewport = container.getBoundingClientRect();
@@ -909,7 +913,7 @@ onMounted(async () => {
   motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
   treeMedia = window.matchMedia('(min-width: 768px)');
   syncMotion = () => {
-    canopyVisible.value = treeMedia.matches;
+    canopyVisible.value = heroTreeEnabled && treeMedia.matches;
     if (!treeMedia.matches) canopyReady.value = false;
     if (treeMedia.matches) closeMenu();
     typedInstance?.destroy();
@@ -1902,4 +1906,5 @@ nav > .language-toggle { display: inline-flex; justify-content: center; align-it
 @media (max-width: 480px) {
   nav > .language-toggle { min-width: 78px; padding: 10px 12px !important; font-size: .8rem !important; }
 }
+#sakura-container.intro-paused .petal { animation-play-state: paused; }
 </style>
