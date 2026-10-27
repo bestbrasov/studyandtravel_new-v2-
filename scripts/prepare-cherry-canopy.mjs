@@ -3,7 +3,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 
 const root = path.resolve(import.meta.dirname, '..');
-const original = path.join(root, 'assets-originals/hero/cherry-canopy-v1.png');
+const original = path.join(root, 'assets-originals/hero/cherry-canopy-v3.png');
 await fs.mkdir(path.dirname(original), { recursive: true });
 if (process.argv[2]) await fs.copyFile(process.argv[2], original, fs.constants.COPYFILE_EXCL);
 const metadata = await sharp(original).metadata();

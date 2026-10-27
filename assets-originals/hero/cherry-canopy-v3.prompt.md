@@ -1,0 +1,6 @@
+# Cherry canopy v3 — full anatomical repair
+
+Mode: built-in imagegen edit, transparent background.
+Input: cherry-canopy-v2.png. Output: cherry-canopy-v3.png.
+
+Prompt: Give the entire cherry tree coherent, botanically plausible anatomy. Preserve a single mature cherry tree rooted at the bottom right, an arched flowering canopy along the top extending left, and broad transparent space in the centre and lower left for website text. Keep the painterly texture and pink/peach palette. Redraw the woody skeleton as needed: one continuous stout trunk from one rooted base, dividing into visibly connected scaffold limbs. Each limb must emerge from a wider parent with a plausible fork and branch collar, progressively tapering into fine twigs. Remove disconnected wood, floating branches, closed-loop mergers, braided trunks and arbitrary cut stubs. The secondary right limb must emerge from the same trunk as an independent Y-shaped fork; the left-sweeping limb must visibly connect, taper and support the blossom clusters. Follow growth directions with bark grain and consistent shading. Preserve the overall silhouette and text clearance. Transparent RGBA background, same landscape framing, no sky, ground panel, text or white fill.
