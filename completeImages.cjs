@@ -7,16 +7,18 @@ const fs = require('fs');
 const raw = JSON.parse(fs.readFileSync('src/courses.json', 'utf-8'));
 const isWrapped = !Array.isArray(raw) && Array.isArray(raw.courses);
 const courses = isWrapped ? raw.courses : (Array.isArray(raw) ? raw : []);
-const UNSPLASH_ACCESS_KEY = 'Z3NBxrIlKlBQYgQdcKqLw7nCNWW8St0m_NbobTkhV9U';
+if (fs.existsSync('.env')) process.loadEnvFile('.env');
+const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY || '';
 
 async function getUnsplashImage(query) {
+  if (!UNSPLASH_ACCESS_KEY) return '';
   try {
     const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}&orientation=landscape&per_page=1`;
     const { data } = await axios.get(url, { timeout: 6000 });
     if (data.results && data.results.length > 0) {
       return data.results[0].urls.regular;
     }
-  } catch (e) {}
+  } catch (error) { console.warn(`Unsplash: căutarea pentru ${query} a eșuat (${error.code || error.response?.status || 'eroare de rețea'}).`); }
   return '';
 }
 

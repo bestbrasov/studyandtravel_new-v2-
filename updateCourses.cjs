@@ -8,7 +8,9 @@ const path = require('path');
 
 const BASE_URL = 'https://www.best.eu.org';
 const COURSES_JSON_PATH = path.join(__dirname, 'src', 'courses.json');
-const UNSPLASH_ACCESS_KEY = 'Z3NBxrIlKlBQYgQdcKqLw7nCNWW8St0m_NbobTkhV9U';
+if (fs.existsSync('.env')) process.loadEnvFile('.env');
+const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY || '';
+const cleanText = value => value.replace(/[\p{Extended_Pictographic}\p{Regional_Indicator}\uFE0F\u200D\u20E3]/gu, '').replace(/\s+/g, ' ').trim();
 
 // Păstrăm imaginile existente din fișierul anterior pentru a nu reface cereri inutile
 let existingImages = new Map();
@@ -21,21 +23,26 @@ if (fs.existsSync(COURSES_JSON_PATH)) {
         existingImages.set(c.title, c.img);
       }
     }
-  } catch {}
+  } catch (error) { console.warn('Nu s-au putut citi imaginile existente:', error.message); }
 }
 
 async function getUnsplashImage(query) {
+  if (!UNSPLASH_ACCESS_KEY) return '';
   try {
     const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}&orientation=landscape&per_page=1`;
     const { data } = await axios.get(url, { timeout: 6000 });
     if (data.results && data.results.length > 0) {
       return data.results[0].urls.regular;
     }
-  } catch {}
+  } catch (error) { console.warn(`Unsplash: căutarea pentru ${query} a eșuat (${error.code || error.response?.status || 'eroare de rețea'}).`); }
   return '';
 }
 
 function parseCards($, targetUrl) {
+  const heading = $('h1,h2').filter((_, el) => /^List of BEST Courses$/i.test($(el).text().trim())).first();
+  if (!heading.length) throw new Error('Secțiunea BEST Courses nu a fost recunoscută; datele existente sunt păstrate.');
+  const section = heading.nextUntil('h1,h2');
+  $ = cheerio.load(section.toArray().map(el => $.html(el)).join('\n'));
   const courses = [];
   
   // 1. Noua structură BEST bazată pe carduri (.event-cards-grid)
@@ -61,7 +68,7 @@ function parseCards($, targetUrl) {
       });
 
       const href = card.attr('href') || '';
-      const link = href.startsWith('http') ? href : (href ? BASE_URL + href : '');
+      const link = href ? new URL(href, targetUrl).href : '';
       const img = existingImages.get(title) || '';
 
       courses.push({ title, city, country, dates, fee, link, img });
@@ -82,7 +89,7 @@ function parseCards($, targetUrl) {
           const fee = $(tds[5]).text().trim();
           let link = '';
           const linkElem = $(tds[0]).find('a').attr('href');
-          if (linkElem) link = linkElem.startsWith('http') ? linkElem : BASE_URL + linkElem;
+          if (linkElem) link = new URL(linkElem, targetUrl).href;
           const img = existingImages.get(title) || '';
           courses.push({ title, city, country, dates, fee, link, img });
         }
@@ -90,6 +97,21 @@ function parseCards($, targetUrl) {
     });
   }
 
+  for (const course of courses) {
+    for (const field of ['title', 'city', 'country', 'dates', 'fee']) {
+      if (typeof course[field] === 'string') course[field] = cleanText(course[field]);
+    }
+    if (['title', 'city', 'country', 'dates', 'fee', 'link'].some(field => typeof course[field] !== 'string' || !course[field].trim())) {
+      throw new Error('Înregistrare incompletă; datele existente sunt păstrate.');
+    }
+    const link = new URL(course.link);
+    if (link.protocol !== 'https:' || !['www.best.eu.org', 'best.eu.org'].includes(link.hostname) || !/\d|free|gratuit/i.test(course.fee)) {
+      throw new Error('Link sau taxă invalidă; datele existente sunt păstrate.');
+    }
+  }
+  const explicitlyEmpty = /Unfortunately, no Local BEST Group is organising a BEST Course this season/i.test($.root().text());
+  if (!courses.length && !explicitlyEmpty) throw new Error('Lista goală nu este confirmată de BEST; posibil eșec de parsare.');
+  if (courses.length && explicitlyEmpty) throw new Error('Date contradictorii în secțiunea de cursuri.');
   return courses;
 }
 
@@ -97,11 +119,12 @@ async function updateCourses() {
   const targetSeasonArg = process.argv[2];
   let url = `${BASE_URL}/courses/list.jsp`;
   if (targetSeasonArg) {
-    url += `?season=${targetSeasonArg}`;
+    url += `?season=${encodeURIComponent(targetSeasonArg)}`;
   }
 
   console.log(`[1/4] Descărcare date de pe ${url}...`);
   const { data } = await axios.get(url, {
+    timeout: 15000,
     headers: {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
@@ -116,7 +139,7 @@ async function updateCourses() {
   } else if (targetSeasonArg) {
     seasonName = targetSeasonArg;
   } else {
-    seasonName = 'Sezonul Curent';
+    seasonName = 'Current season';
   }
 
   // Verifică mesajul informativ dacă nu sunt cursuri
@@ -162,7 +185,7 @@ async function updateCourses() {
   }
 
   const payload = {
-    season: seasonName,
+    season: cleanText(seasonName),
     seasonCode: targetSeasonArg || '',
     notice: notice,
     deadlines: deadlines,
@@ -170,12 +193,19 @@ async function updateCourses() {
     courses: courses
   };
 
-  fs.writeFileSync(COURSES_JSON_PATH, JSON.stringify(payload, null, 2));
+  const temporaryPath = `${COURSES_JSON_PATH}.${process.pid}.tmp`;
+  try {
+    fs.writeFileSync(temporaryPath, JSON.stringify(payload, null, 2) + '\n', { flag: 'wx' });
+    fs.renameSync(temporaryPath, COURSES_JSON_PATH);
+  } finally {
+    if (fs.existsSync(temporaryPath)) fs.unlinkSync(temporaryPath);
+  }
   console.log(`[4/4] Fișierul ${COURSES_JSON_PATH} a fost actualizat cu succes!`);
   console.log(`Rezumat: ${courses.length} cursuri pentru ${seasonName}`);
 }
 
-updateCourses().catch((err) => {
+if (require.main === module) updateCourses().catch((err) => {
   console.error('Eroare la actualizarea cursurilor:', err.message);
   process.exit(1);
 });
+module.exports = { parseCards, updateCourses };
