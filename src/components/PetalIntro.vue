@@ -111,14 +111,35 @@ function release() {
 
 function motionChanged() { if (media.matches) finish(); }
 
+function clearBootScreen() { document.dispatchEvent(new Event('petal-intro-ready')); }
+
+function createImmediatePetal() {
+  const petal = document.createElement('canvas');
+  petal.width = 96;
+  petal.height = 96;
+  const paint = petal.getContext('2d');
+  if (!paint) return null;
+  const gradient = paint.createLinearGradient(15, 80, 75, 15);
+  gradient.addColorStop(0, '#ec77ab');
+  gradient.addColorStop(.6, '#ff9a9e');
+  gradient.addColorStop(1, '#fad0c4');
+  paint.fillStyle = gradient;
+  paint.beginPath();
+  paint.moveTo(12, 84);
+  paint.bezierCurveTo(19, 45, 32, 15, 60, 12);
+  paint.bezierCurveTo(76, 9, 86, 17, 75, 29);
+  paint.bezierCurveTo(94, 22, 92, 43, 80, 55);
+  paint.bezierCurveTo(60, 76, 34, 72, 12, 84);
+  paint.fill();
+  return petal;
+}
+
 onMounted(async () => {
   media = window.matchMedia('(prefers-reduced-motion: reduce)');
   try { storage = window.sessionStorage; } catch { /* Private browsing may block storage. */ }
-  if (!shouldShowIntro({ storage, reducedMotion: media.matches, hash: window.location.hash, scrollY: window.scrollY })) return;
-  sprite = new Image();
-  sprite.src = '/images/intro-petal.webp';
-  try { await sprite.decode(); } catch { return; }
-  if (disposed || media.matches) return;
+  if (!shouldShowIntro({ storage, reducedMotion: media.matches, hash: window.location.hash, scrollY: window.scrollY })) { clearBootScreen(); return; }
+  sprite = createImmediatePetal();
+  if (!sprite) { clearBootScreen(); return; }
   visible.value = true;
   previousFocus = document.activeElement;
   unlockScroll = lockIntroScroll(window, document);
@@ -126,11 +147,18 @@ onMounted(async () => {
   await nextTick();
   if (disposed || !canvasElement.value) return;
   context = canvasElement.value.getContext('2d');
-  if (!context) { finish(); return; }
+  if (!context) { clearBootScreen(); finish(); return; }
   resize();
+  clearBootScreen();
   entryButton.value.focus({ preventScroll: true });
   window.addEventListener('resize', queueResize, { passive: true });
   media.addEventListener('change', motionChanged);
+  // Never delay entry or scroll locking for an image download.
+  const image = new Image();
+  image.src = '/images/intro-petal.webp';
+  image.decode().then(() => {
+    if (!disposed && visible.value && !releasing.value) { sprite = image; draw(0); }
+  }).catch(() => { /* The immediately available petal keeps the intro functional offline. */ });
 });
 
 onUnmounted(() => {
@@ -141,6 +169,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', queueResize);
   media?.removeEventListener('change', motionChanged);
   unlockScroll();
+  clearBootScreen();
 });
 </script>
 

@@ -2,6 +2,8 @@
 <html lang="ro">
   <head>
     <meta charset="UTF-8">
+    <meta name="color-scheme" content="only light">
+    <meta name="theme-color" content="#fff4f8">
     <link rel="icon" type="image/png" href="/images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study &amp; Travel — Cursuri BEST | BEST Brașov</title>
@@ -15,10 +17,33 @@
     <meta name="twitter:title" content="Study &amp; Travel — BEST Brașov">
     <meta name="twitter:description" content="Descoperă cursurile BEST din Europa, condițiile de participare și ghidul de aplicare.">
 
+    <style>
+      :root { color-scheme: only light; background-color: #fdfbfb; }
+      body { background-color: #fdfbfb; }
+      html[data-intro-pending] { overflow: hidden; }
+      html[data-intro-pending]::before { content: ''; position: fixed; inset: 0; z-index: 10999; background: #fff0f5; }
+    </style>
+    <script>
+      (() => {
+        let seen = false;
+        try { seen = sessionStorage.getItem('study-travel-petal-intro-seen') === '1'; } catch {}
+        if (seen || matchMedia('(prefers-reduced-motion: reduce)').matches || (location.hash && location.hash !== '#hero')) return;
+        document.documentElement.setAttribute('data-intro-pending', '');
+        const clear = () => {
+          document.documentElement.removeAttribute('data-intro-pending');
+          clearTimeout(timeout);
+          document.removeEventListener('petal-intro-ready', clear);
+        };
+        const timeout = setTimeout(clear, 8000);
+        document.addEventListener('petal-intro-ready', clear);
+      })();
+    </script>
+    <noscript><style>html[data-intro-pending] { overflow: auto; } html[data-intro-pending]::before { display: none; }</style></noscript>
+    <link rel="preload" href="/images/intro-petal.webp" as="image" type="image/webp">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script type="module" crossorigin src="/assets/index-C0P6gKSK.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CIWPzGNF.css">
+    <script type="module" crossorigin src="/assets/index-HBN3kbcM.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-ShSpFmHM.css">
   </head>
   <body>
     <div id="app"></div>
