@@ -879,9 +879,21 @@ onMounted(async () => {
     });
   }
 
+  let petalLayoutKey = '';
   const createPetals = () => {
     const container = sakuraContainer.value;
     if(!container) return;
+    const desktop = treeMedia.matches;
+    const treeSize = desktop ? treeElement.value.getBoundingClientRect() : null;
+    // Mobile browser chrome resizes the viewport during a swipe. Keep the
+    // existing particles and their animation phase for height-only changes.
+    const layoutKey = [
+      container.clientWidth, desktop ? container.clientHeight : 0,
+      treeSize?.width || 0, treeSize?.height || 0,
+      desktop, motionMedia.matches, canopyVisible.value, canopyReady.value,
+    ].join(':');
+    if (layoutKey === petalLayoutKey) return;
+    petalLayoutKey = layoutKey;
     container.replaceChildren();
     if (motionMedia.matches || (canopyVisible.value && !canopyReady.value)) return;
     const count = treeMedia.matches ? 16 : 8;
@@ -1023,6 +1035,9 @@ section[id] { scroll-margin-top: 20px; }
   z-index: 900;
   pointer-events: none;
   overflow: hidden;
+}
+@media (max-width: 767px) {
+  #sakura-container { height: 100lvh; }
 }
 
 .petal {
