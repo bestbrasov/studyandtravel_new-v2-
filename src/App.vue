@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-container">
+  <div class="landing-container" :class="{ 'intro-active': introActive }">
     <PetalIntro :label="t('introEnter')" @active="introActive = $event" />
     <a class="skip-link" href="#main-content" :inert="isModalOpen || introActive">{{ t('text000') }}</a>
     <Teleport to="body">
@@ -318,18 +318,28 @@
       <h2 class="text-center">{{ t('text136') }}</h2>
 
       <div class="responsible-wrapper">
-        <div class="responsible-card mouse-hover">
-          <img src="/images/ioana_vivaldi.jpeg" class="resp-img" :alt="t('text137')">
+        <article class="responsible-card mouse-hover">
+          <svg class="postcard-stamp" viewBox="0 0 88 106" fill="none" aria-hidden="true" focusable="false">
+            <path d="M8 4H80V102H8Z" fill="#fff8fa" stroke="#ff9a9e" stroke-width="5" stroke-dasharray="3 5"/>
+            <path d="M17 14H71V92H17Z" stroke="#f3b5c6"/>
+            <path d="M44 71C44 60 42 53 44 43M43 58L32 51M44 62L56 53" stroke="#cc8d9e" stroke-width="2" stroke-linecap="round"/>
+            <path d="M44 43C27 48 25 35 37 32C30 19 45 16 49 29C60 20 69 32 57 40C70 49 56 59 49 47C42 60 29 52 37 43Z" fill="#fad0c4" stroke="#ff9a9e" stroke-width="1.5"/>
+            <circle cx="46" cy="39" r="3" fill="#ec77ab"/>
+            <path d="M27 82H61" stroke="#f3b5c6" stroke-linecap="round"/>
+          </svg>
+          <figure class="resp-polaroid">
+            <img src="/images/ioana_vivaldi.jpeg" class="resp-img" :alt="t('text137')" loading="lazy" decoding="async" width="440" height="440">
+          </figure>
           <div class="resp-content">
             <h3>{{ t('text137') }}</h3>
-            <p style="margin-bottom: 12px; line-height: 1.6;">{{ t('text138') }}</p>
-            <p style="font-size: 1rem; color: var(--blue-sky); font-weight: 600; margin: 0;">
-              <a href="mailto:ioana-bianca.renea@best-eu.org" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-envelope"></i> {{ t('text139') }}
+            <p class="resp-message">{{ t('text138') }}</p>
+            <p class="resp-email-row">
+              <a class="resp-email" href="mailto:ioana-bianca.renea@best-eu.org">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i><span>{{ t('text139') }}</span>
               </a>
             </p>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
@@ -576,6 +586,11 @@ let treeObserver;
 let motionMedia;
 let treeMedia;
 let syncMotion;
+watch(introActive, active => {
+  if (active) typedInstance?.stop();
+  else if (typedInstance) typedInstance.start();
+  else syncMotion?.();
+});
 onUnmounted(() => {
   treeObserver?.disconnect();
   motionMedia?.removeEventListener('change', syncMotion);
@@ -919,7 +934,7 @@ onMounted(async () => {
     typedInstance?.destroy();
     typedInstance = null;
     typedText.value.textContent = 'BEST.';
-    if (!motionMedia.matches) typedInstance = new Typed(typedText.value, {
+    if (!motionMedia.matches && !introActive.value) typedInstance = new Typed(typedText.value, {
       strings: ['Learn.', 'Travel.', 'Connect.', 'BEST.'],
       typeSpeed: 80, backSpeed: 50, loop: true,
     });
@@ -1907,4 +1922,32 @@ nav > .language-toggle { display: inline-flex; justify-content: center; align-it
   nav > .language-toggle { min-width: 78px; padding: 10px 12px !important; font-size: .8rem !important; }
 }
 #sakura-container.intro-paused .petal { animation-play-state: paused; }
+/* A postcard layout, with the original contact copy in both languages. */
+#responsible .responsible-card { position: relative; display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: center; max-width: 1000px; gap: 36px; padding: 38px; border: 1px solid #f3d3dd; border-radius: 24px; background: linear-gradient(115deg, #fff6f8, #fffdf9 55%, #fffafb); box-shadow: 0 12px 32px #92365b0a; }
+#responsible .responsible-card:hover { transform: none; box-shadow: 0 16px 36px #92365b12; }
+.resp-polaroid { position: relative; margin: 0; padding: 10px 10px 30px; background: #fffdfb; border: 1px solid #f0e4e2; box-shadow: 0 10px 20px #71364b1a; transform: rotate(-4deg); transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.resp-polaroid::before { content: ''; position: absolute; top: -12px; left: 32%; width: 36%; height: 24px; background: #f4bdc999; border: 1px solid #edbac533; transform: rotate(5deg); z-index: 1; }
+#responsible .resp-img { display: block; width: 100%; height: auto; min-width: 0; min-height: 0; max-width: none; max-height: none; aspect-ratio: 1 / 1; border: 0; border-radius: 2px; box-shadow: none; object-fit: cover; object-position: center 25%; }
+#responsible .resp-content { min-width: 0; padding: 24px 68px 24px 32px; border-left: 1px dashed #edb5c5; text-align: left; }
+#responsible .resp-content h3 { font-size: clamp(1.6rem, 2.5vw, 2rem); line-height: 1.2; margin: 0; color: var(--text-main); }
+#responsible .resp-content p { opacity: 1; }
+#responsible .resp-message { margin: 16px 0 20px; color: #596175; line-height: 1.7; }
+#responsible .resp-email-row { margin: 0; }
+.resp-email { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; min-height: 46px; padding: 10px 14px; border: 1px solid #ff9a9e80; border-radius: 12px; background: #fff0f5; color: #92365b; text-decoration: none; font-size: .9rem; font-weight: 700; transition: background .2s ease, box-shadow .2s ease; }
+.resp-email span { min-width: 0; overflow-wrap: anywhere; }
+.resp-email:hover { background: #ffe5ee; box-shadow: 0 5px 14px #ff9a9e20; }
+.postcard-stamp { position: absolute; top: 20px; right: 20px; width: 60px; height: 74px; opacity: .8; pointer-events: none; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .responsible-card:hover .resp-polaroid, .responsible-card:focus-within .resp-polaroid { transform: rotate(-1deg) translateY(-3px); }
+}
+@media (max-width: 767px) {
+  #responsible .responsible-card { grid-template-columns: minmax(0, 1fr); padding: 28px 22px 22px; gap: 24px; }
+  .resp-polaroid { width: 174px; justify-self: center; padding: 8px 8px 24px; }
+  #responsible .resp-content { padding: 24px 0 0; border-left: 0; border-top: 1px dashed #edb5c5; text-align: center; }
+  #responsible .resp-content h3 { font-size: 1.65rem; }
+  .resp-email { width: 100%; justify-content: center; font-size: .85rem; }
+  .postcard-stamp { width: 46px; height: 58px; top: 14px; right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .resp-polaroid { transform: none; } }
+.landing-container.intro-active *, .landing-container.intro-active *::before, .landing-container.intro-active *::after { animation-play-state: paused !important; }
 </style>
