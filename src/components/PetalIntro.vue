@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <button v-if="visible" ref="entryButton" type="button" class="petal-intro" :class="{ 'is-releasing': releasing }"
-      :aria-label="label" :aria-busy="releasing" @click="release" @keydown.esc.prevent="finish" @keydown.tab.prevent>
+      :aria-label="label" :aria-busy="releasing" @click="release" @keydown.esc.prevent="release" @keydown.tab.prevent>
       <canvas ref="canvasElement" aria-hidden="true"></canvas>
       <span class="petal-intro-invitation" aria-hidden="true">
         <span class="petal-intro-brand">BEST Courses</span>
@@ -13,7 +13,7 @@
 
 <script setup>
 import { nextTick, onMounted, onUnmounted, ref } from 'vue';
-import { createPetalField, petalPosition, shouldShowIntro, introDuration, introSessionKey } from '../petalIntro.js';
+import { createPetalField, petalPosition, shouldShowIntro, introDuration, introSessionKey, lockIntroScroll } from '../petalIntro.js';
 
 defineProps({ label: { type: String, required: true } });
 const emit = defineEmits(['active']);
@@ -33,7 +33,7 @@ let resizeFrame = 0;
 let storage;
 let media;
 let previousFocus;
-let previousOverflow;
+let unlockScroll = () => {};
 let disposed = false;
 let progress = 0;
 
@@ -80,7 +80,7 @@ function finish() {
   clearTimeout(finishTimer);
   try { storage?.setItem(introSessionKey, '1'); } catch { /* No storage is required to enter. */ }
   visible.value = false;
-  document.body.style.overflow = previousOverflow;
+  unlockScroll();
   emit('active', false);
   nextTick(() => {
     if (disposed) return;
@@ -121,8 +121,7 @@ onMounted(async () => {
   if (disposed || media.matches) return;
   visible.value = true;
   previousFocus = document.activeElement;
-  previousOverflow = document.body.style.overflow;
-  document.body.style.overflow = 'hidden';
+  unlockScroll = lockIntroScroll(window, document);
   emit('active', true);
   await nextTick();
   if (disposed || !canvasElement.value) return;
@@ -141,7 +140,7 @@ onUnmounted(() => {
   clearTimeout(finishTimer);
   window.removeEventListener('resize', queueResize);
   media?.removeEventListener('change', motionChanged);
-  if (visible.value) document.body.style.overflow = previousOverflow;
+  unlockScroll();
 });
 </script>
 

@@ -1,6 +1,36 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createPetalField, petalPosition, shouldShowIntro, introSessionKey } from '../src/petalIntro.js';
+import { createPetalField, petalPosition, shouldShowIntro, introSessionKey, lockIntroScroll } from '../src/petalIntro.js';
+
+test('intro blocks wheel, touch and scroll keys until unlocked, then restores the page', () => {
+  const listeners = new Map();
+  const pageWindow = {
+    addEventListener: (type, callback) => listeners.set(type, callback),
+    removeEventListener: (type, callback) => { if (listeners.get(type) === callback) listeners.delete(type); },
+  };
+  const pageDocument = { documentElement: { style: { overflow: 'clip' } }, body: { style: { overflow: '' } } };
+  const unlock = lockIntroScroll(pageWindow, pageDocument);
+  assert.equal(pageDocument.documentElement.style.overflow, 'hidden');
+  assert.equal(pageDocument.body.style.overflow, 'hidden');
+  for (const type of ['wheel', 'touchmove']) {
+    let prevented = false;
+    listeners.get(type)({ preventDefault: () => { prevented = true; } });
+    assert.equal(prevented, true);
+  }
+  for (const key of ['ArrowDown', 'PageDown', 'Home', 'End']) {
+    let prevented = false;
+    listeners.get('keydown')({ key, preventDefault: () => { prevented = true; } });
+    assert.equal(prevented, true);
+  }
+  let activationBlocked = false;
+  listeners.get('keydown')({ key: 'Enter', preventDefault: () => { activationBlocked = true; } });
+  assert.equal(activationBlocked, false);
+  unlock();
+  unlock();
+  assert.equal(pageDocument.documentElement.style.overflow, 'clip');
+  assert.equal(pageDocument.body.style.overflow, '');
+  assert.equal(listeners.size, 0);
+});
 
 test('intro respects session memory, deep links, scroll restoration and reduced motion', () => {
   assert.equal(shouldShowIntro({}), true);

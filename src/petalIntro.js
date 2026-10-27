@@ -1,6 +1,32 @@
 export const introSessionKey = 'study-travel-petal-intro-seen';
 export const introDuration = 1200;
 
+export function lockIntroScroll(pageWindow, pageDocument) {
+  const root = pageDocument.documentElement;
+  const body = pageDocument.body;
+  const rootOverflow = root.style.overflow;
+  const bodyOverflow = body.style.overflow;
+  const preventScroll = event => event.preventDefault();
+  const preventScrollKeys = event => {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown', 'Home', 'End'].includes(event.key)) event.preventDefault();
+  };
+  root.style.overflow = 'hidden';
+  body.style.overflow = 'hidden';
+  pageWindow.addEventListener('wheel', preventScroll, { passive: false, capture: true });
+  pageWindow.addEventListener('touchmove', preventScroll, { passive: false, capture: true });
+  pageWindow.addEventListener('keydown', preventScrollKeys, true);
+  let locked = true;
+  return () => {
+    if (!locked) return;
+    locked = false;
+    root.style.overflow = rootOverflow;
+    body.style.overflow = bodyOverflow;
+    pageWindow.removeEventListener('wheel', preventScroll, true);
+    pageWindow.removeEventListener('touchmove', preventScroll, true);
+    pageWindow.removeEventListener('keydown', preventScrollKeys, true);
+  };
+}
+
 export function shouldShowIntro({ storage, reducedMotion = false, hash = '', scrollY = 0 }) {
   if (reducedMotion || (hash && hash !== '#hero') || scrollY > 120) return false;
   try { return storage?.getItem(introSessionKey) !== '1'; }
