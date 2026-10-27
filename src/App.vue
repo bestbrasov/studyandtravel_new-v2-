@@ -1506,7 +1506,7 @@ h3 { line-height: 1.3; }
 .hero-actions { margin-top: 28px; }
 .hero-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .hero-art picture, .cherry-canopy { display: block; width: 100%; height: 100%; }
-.cherry-canopy { object-fit: cover; object-position: center; opacity: .68; }
+.cherry-canopy { object-fit: cover; object-position: center; opacity: .68; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%); }
 .stats-bar { transform: none; width: 88%; max-width: 1180px; margin: 0 auto 12px; padding: 24px; border-radius: var(--card-radius); background: #ffffffd9; gap: 32px; }
 .stat-item h3 { font-size: 1.65rem; }
 .stat-item p { font-size: .85rem; text-transform: none; letter-spacing: 0; opacity: 1; color: #596175; }
