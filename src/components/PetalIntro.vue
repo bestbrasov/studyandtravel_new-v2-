@@ -148,10 +148,10 @@ onUnmounted(() => {
 .petal-intro { position: fixed; inset: 0; width: 100%; height: 100dvh; z-index: 11000; display: block; padding: 0; border: 0; background: transparent; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .petal-intro canvas { display: block; width: 100%; height: 100%; pointer-events: none; }
 .petal-intro:focus-visible { outline: 3px solid #92365b; outline-offset: -6px; }
-.petal-intro-invitation { position: absolute; left: 50%; bottom: max(8vh, 32px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; width: max-content; max-width: calc(100% - 40px); padding: 16px 28px; border: 1px solid #ff9a9e66; border-radius: 24px; background: #fff9f4ed; color: #71364b; box-shadow: 0 8px 24px #92365b14; font: 700 .95rem/1.5 'Nunito', sans-serif; transition: opacity .18s ease, translate .18s ease; }
+.petal-intro-invitation { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 6px; width: max-content; max-width: calc(100% - 40px); padding: 16px 28px; border: 1px solid #ff9a9e66; border-radius: 24px; background: #fff9f4ed; color: #71364b; box-shadow: 0 8px 24px #92365b14; font: 700 .95rem/1.5 'Nunito', sans-serif; transition: opacity .18s ease, translate .18s ease; }
 .petal-intro-brand { font: 600 1.3rem/1.2 'Baloo 2', sans-serif; color: #92365b; }
 .is-releasing { cursor: default; }
 .is-releasing .petal-intro-invitation { opacity: 0; translate: 0 8px; }
-@media (max-width: 767px) { .petal-intro-invitation { bottom: max(9vh, env(safe-area-inset-bottom, 24px)); padding: 14px 22px; font-size: .9rem; } }
+@media (max-width: 767px) { .petal-intro-invitation { padding: 14px 22px; font-size: .9rem; } }
 @media (prefers-reduced-motion: reduce) { .petal-intro { display: none; } }
 </style>
