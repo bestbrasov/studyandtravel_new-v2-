@@ -1113,7 +1113,8 @@ nav {
   backdrop-filter: blur(8px); box-shadow: var(--shadow-pop);
   z-index: 1000; border: 1px solid rgba(255,255,255,0.55);
 }
-.logo { font-size: 1.5rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+.logo { display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+.logo .nav-logo-img { display: block; }
 .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-main); font-weight: 700; transition: 0.3s; font-size: 1rem;}
 .nav-links a:hover { color: var(--pink-pop); }
 
