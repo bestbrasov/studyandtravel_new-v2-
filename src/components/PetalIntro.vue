@@ -1,13 +1,8 @@
 <template>
   <Teleport to="body">
-    <button v-if="visible" ref="entryButton" type="button" class="petal-intro" :class="{ 'is-releasing': releasing }"
-      :aria-label="label" :aria-busy="releasing" @click="release" @keydown.esc.prevent="release" @keydown.tab.prevent>
+    <div v-if="visible" class="petal-intro" aria-hidden="true">
       <canvas ref="canvasElement" aria-hidden="true"></canvas>
-      <span class="petal-intro-invitation" aria-hidden="true">
-        <span class="petal-intro-brand">BEST Courses</span>
-        <span>{{ label }}</span>
-      </span>
-    </button>
+    </div>
   </Teleport>
 </template>
 
@@ -15,12 +10,10 @@
 import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { createPetalField, petalPosition, shouldShowIntro, introDuration, introSessionKey, lockIntroScroll } from '../petalIntro.js';
 
-defineProps({ label: { type: String, required: true } });
 const emit = defineEmits(['active']);
 const visible = ref(false);
 const releasing = ref(false);
 const canvasElement = ref(null);
-const entryButton = ref(null);
 let context;
 let sprite;
 let petals = [];
@@ -32,7 +25,6 @@ let finishTimer;
 let resizeFrame = 0;
 let storage;
 let media;
-let previousFocus;
 let unlockScroll = () => {};
 let disposed = false;
 let progress = 0;
@@ -82,12 +74,6 @@ function finish() {
   visible.value = false;
   unlockScroll();
   emit('active', false);
-  nextTick(() => {
-    if (disposed) return;
-    const target = previousFocus && previousFocus !== document.body && previousFocus.isConnected
-      ? previousFocus : document.querySelector('.hero-actions a');
-    target?.focus({ preventScroll: true });
-  });
   window.removeEventListener('resize', queueResize);
   media?.removeEventListener('change', motionChanged);
 }
@@ -141,7 +127,6 @@ onMounted(async () => {
   sprite = createImmediatePetal();
   if (!sprite) { clearBootScreen(); return; }
   visible.value = true;
-  previousFocus = document.activeElement;
   unlockScroll = lockIntroScroll(window, document);
   emit('active', true);
   await nextTick();
@@ -150,15 +135,15 @@ onMounted(async () => {
   if (!context) { clearBootScreen(); finish(); return; }
   resize();
   clearBootScreen();
-  entryButton.value.focus({ preventScroll: true });
   window.addEventListener('resize', queueResize, { passive: true });
   media.addEventListener('change', motionChanged);
   // Never delay entry or scroll locking for an image download.
   const image = new Image();
   image.src = '/images/intro-petal.webp';
   image.decode().then(() => {
-    if (!disposed && visible.value && !releasing.value) { sprite = image; draw(0); }
+    if (!disposed && visible.value) { sprite = image; draw(progress); }
   }).catch(() => { /* The immediately available petal keeps the intro functional offline. */ });
+  release();
 });
 
 onUnmounted(() => {
@@ -174,13 +159,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.petal-intro { position: fixed; inset: 0; width: 100%; height: 100dvh; z-index: 11000; display: block; padding: 0; border: 0; background: transparent; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.petal-intro { position: fixed; inset: 0; width: 100%; height: 100dvh; z-index: 11000; display: block; background: transparent; }
 .petal-intro canvas { display: block; width: 100%; height: 100%; pointer-events: none; }
-.petal-intro:focus-visible { outline: 3px solid #92365b; outline-offset: -6px; }
-.petal-intro-invitation { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 6px; width: max-content; max-width: calc(100% - 40px); padding: 16px 28px; border: 1px solid #ff9a9e66; border-radius: 24px; background: #fff9f4ed; color: #71364b; box-shadow: 0 8px 24px #92365b14; font: 700 .95rem/1.5 'Nunito', sans-serif; transition: opacity .18s ease, translate .18s ease; }
-.petal-intro-brand { font: 600 1.3rem/1.2 'Baloo 2', sans-serif; color: #92365b; }
-.is-releasing { cursor: default; }
-.is-releasing .petal-intro-invitation { opacity: 0; translate: 0 8px; }
-@media (max-width: 767px) { .petal-intro-invitation { padding: 14px 22px; font-size: .9rem; } }
 @media (prefers-reduced-motion: reduce) { .petal-intro { display: none; } }
 </style>

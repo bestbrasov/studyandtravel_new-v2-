@@ -1,6 +1,6 @@
 <template>
   <div class="landing-container" :class="{ 'intro-active': introActive }">
-    <PetalIntro :label="t('introEnter')" @active="introActive = $event" />
+    <PetalIntro @active="introActive = $event" />
     <a class="skip-link" href="#main-content" :inert="isModalOpen || introActive">{{ t('text000') }}</a>
     <Teleport to="body">
       <div id="sakura-container" ref="sakuraContainer" :class="{ 'intro-paused': introActive }" aria-hidden="true"></div>
